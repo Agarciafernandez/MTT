@@ -1,0 +1,234 @@
+#include "assignment.h"
+
+void assignmentsuboptimal1(int *assignment, double *cost, double *distMatrix, int *nOfValidObservations, int *nOfValidTracks, int nOfRows, int nOfColumns)
+{
+	unsigned char infiniteValueFound, finiteValueFound, repeatSteps;
+  unsigned char allSinglyValidated, singleValidationFound;
+	int n, row, col, tmpRow, tmpCol;
+	double value, minValue, inf;
+		
+	/* initialization */
+	inf = myGetInf();	
+	*cost = 0;
+	for(row=0; row<nOfRows; row++)
+	{
+		nOfValidObservations[row] = 0;
+#ifdef ONE_INDEXING
+		assignment[row] =  0.0;
+#else
+		assignment[row] = -1.0;
+#endif	
+	}	
+	for(col=0; col<nOfColumns; col++)
+	{ nOfValidTracks[col] = 0; }
+
+	/* compute number of validations */
+	infiniteValueFound = 0;
+	finiteValueFound   = 0;
+	for(row=0; row<nOfRows; row++)
+	{
+		for(col=0; col<nOfColumns; col++)
+		{
+			if(myIsFinite(distMatrix[row + nOfRows*col]))
+			{
+				nOfValidTracks[col]       += 1;
+				nOfValidObservations[row] += 1;
+				finiteValueFound = 1;
+			}
+			else
+				infiniteValueFound = 1;
+		}
+	}
+			
+	if(infiniteValueFound)
+	{
+		if(!finiteValueFound)
+			return;
+			
+		repeatSteps = 1;
+		
+		while(repeatSteps)
+		{
+			repeatSteps = 0;
+
+			/* step 1: reject assignments of multiply validated tracks to singly validated observations		 */
+			for(col=0; col<nOfColumns; col++)
+			{
+				singleValidationFound = 0;
+				for(row=0; row<nOfRows; row++)
+				{
+					if(myIsFinite(distMatrix[row + nOfRows*col]) && (nOfValidObservations[row] == 1))
+					{
+						singleValidationFound = 1;
+						break;
+					}
+				}
+				
+				if(singleValidationFound)
+				{
+					for(row=0; row<nOfRows; row++)
+						if((nOfValidObservations[row] > 1) && myIsFinite(distMatrix[row + nOfRows*col]))
+						{
+							distMatrix[row + nOfRows*col] = inf;
+							nOfValidObservations[row] -= 1;							
+							nOfValidTracks[col]       -= 1;	
+							repeatSteps = 1;				
+						}
+					}
+			}
+			
+			/* step 2: reject assignments of multiply validated observations to singly validated tracks */
+			if(nOfColumns > 1)			
+			{	
+				for(row=0; row<nOfRows; row++)
+				{
+					singleValidationFound = 0;
+					for(col=0; col<nOfColumns; col++)
+					{
+						if(myIsFinite(distMatrix[row + nOfRows*col]) && (nOfValidTracks[col] == 1))
+						{
+							singleValidationFound = 1;
+							break;
+						}
+					}
+					
+					if(singleValidationFound)
+					{
+						for(col=0; col<nOfColumns; col++)
+						{
+							if((nOfValidTracks[col] > 1) && myIsFinite(distMatrix[row + nOfRows*col]))
+							{
+								distMatrix[row + nOfRows*col] = inf;
+								nOfValidObservations[row] -= 1;
+								nOfValidTracks[col]       -= 1;
+								repeatSteps = 1;								
+							}
+						}
+					}
+				}
+			}
+		} /* while(repeatSteps) */
+	
+		/* for each multiply validated track that validates only with singly validated  */
+		/* observations, choose the observation with minimum distance */
+		for(row=0; row<nOfRows; row++)
+		{
+			if(nOfValidObservations[row] > 1)
+			{
+				allSinglyValidated = 1;
+				minValue = inf;
+				for(col=0; col<nOfColumns; col++)
+				{
+					value = distMatrix[row + nOfRows*col];
+					if(myIsFinite(value))
+					{
+						if(nOfValidTracks[col] > 1)
+						{
+							allSinglyValidated = 0;
+							break;
+						}
+						else if((nOfValidTracks[col] == 1) && (value < minValue))
+						{
+							tmpCol   = col;
+							minValue = value;
+						}
+					}
+				}
+				
+				if(allSinglyValidated)
+				{
+#ifdef ONE_INDEXING
+					assignment[row] = tmpCol + 1;
+#else
+					assignment[row] = tmpCol;
+#endif
+					*cost += minValue;
+					for(n=0; n<nOfRows; n++)
+						distMatrix[n + nOfRows*tmpCol] = inf;
+					for(n=0; n<nOfColumns; n++)
+						distMatrix[row + nOfRows*n] = inf;
+				}
+			}
+		}
+
+		/* for each multiply validated observation that validates only with singly validated  */
+		/* track, choose the track with minimum distance */
+		for(col=0; col<nOfColumns; col++)
+		{
+			if(nOfValidTracks[col] > 1)
+			{
+				allSinglyValidated = 1;
+				minValue = inf;
+				for(row=0; row<nOfRows; row++)
+				{
+					value = distMatrix[row + nOfRows*col];
+					if(myIsFinite(value))
+					{
+						if(nOfValidObservations[row] > 1)
+						{
+							allSinglyValidated = 0;
+							break;
+						}
+						else if((nOfValidObservations[row] == 1) && (value < minValue))
+						{
+							tmpRow   = row;
+							minValue = value;
+						}
+					}
+				}
+				
+				if(allSinglyValidated)
+				{
+#ifdef ONE_INDEXING
+					assignment[tmpRow] = col + 1;
+#else
+					assignment[tmpRow] = col;
+#endif
+					*cost += minValue;
+					for(n=0; n<nOfRows; n++)
+						distMatrix[n + nOfRows*col] = inf;
+					for(n=0; n<nOfColumns; n++)
+						distMatrix[tmpRow + nOfRows*n] = inf;
+				}
+			}
+		}	
+	} /* if(infiniteValueFound) */
+	
+	/* now, recursively search for the minimum element and do the assignment */
+	while(1)
+	{
+		/* find minimum distance observation-to-track pair */
+		minValue = inf;
+		for(row=0; row<nOfRows; row++)
+			for(col=0; col<nOfColumns; col++)
+			{
+				value = distMatrix[row + nOfRows*col];
+				if(myIsFinite(value) && (value < minValue))
+				{
+					minValue = value;
+					tmpRow   = row;
+					tmpCol   = col;
+				}
+			}
+		
+		if(myIsFinite(minValue))
+		{
+#ifdef ONE_INDEXING
+			assignment[tmpRow] = tmpCol + 1;
+#else
+			assignment[tmpRow] = tmpCol;
+#endif
+			*cost += minValue;
+			for(n=0; n<nOfRows; n++)
+				distMatrix[n + nOfRows*tmpCol] = inf;
+			for(n=0; n<nOfColumns; n++)
+				distMatrix[tmpRow + nOfRows*n] = inf;			
+		}
+		else
+			break;
+			
+	} /* while(1) */
+}
+
+
+
