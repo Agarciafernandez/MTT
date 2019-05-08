@@ -1,6 +1,14 @@
-%Demo with the implementation of the Poisson multi-Bernoulli mixture (PMBM)
-%filter described in
+%Demo with the implementation of the multi-Bernoulli mixture (MBM)
+%filter described in Section IV in
 %Á. F. García-Fernández, J. L. Williams, K. Granström and L. Svensson, "Poisson Multi-Bernoulli Mixture Filter: Direct Derivation and Implementation," in IEEE Transactions on Aerospace and Electronic Systems, vol. 54, no. 4, pp. 1883-1901, Aug. 2018.
+
+%The birth model is multi-Bernoulli
+
+%The specific implementation is given in 
+
+%Á. F. García-Fernández, Y. Xia, K. Granström, L. Svensson, J. L. Williams, "Gaussian mixture implementation of the Multi-Bernoulli Mixture Filter," in Proceedings of the 22nd  
+%International conference on Information Fusion, 2019. 
+
 
 %Performance is measured with the GOSPA metric (alpha=2) and its
 %decomposition into localisation errors for properly detected targets,
@@ -21,18 +29,18 @@ addpath('..\Assignment')
 
 rand('seed',9)
 randn('seed',9)
-ScenarioWilliams15;
+ScenarioWilliams15_MB;
 
 Nx=4; %Single target state dimension
 %Filter
-T_pruning=10^(-4); %Threshold for pruning multi-Bernoulli mixtures weights
-T_pruningPois=10^(-5); %Threshold for pruning PHD of the Poisson component
+T_pruning=0.0001; %Threshold for pruning multi-Bernoulli mixtures weights
 Nhyp_max=200;  %Maximum number of hypotheses (MBM components)
 gating_threshold=20; %Threshold for gating
 existence_threshold=0.00001; %Existence threshold: Bernoulli components with existence below this threshold are removed
 
-type_estimator=1; %Choose Estimator 1, 2 or 3 as defined in the paper
+type_estimator=2; %Choose Estimator 1, 2 or 3 as defined in the paper
 existence_estimation_threshold1=0.4; %Only for esimator 1
+
 
 %GOSPA errors for the estimator with highest hypothesis
 squared_gospa_t_tot=zeros(1,Nsteps);
@@ -43,14 +51,10 @@ squared_gospa_mis_t_tot=zeros(1,Nsteps); %Misdetection error
 %Explanation of the structures filter_pred and filter_upd
 
 %filter_pred and filter_upd are two structures with the following fields
-%filter_upd.weightPois (weights of the Poisson point process (PPP) 
-%meanPois (means of the Gaussian components of the PPP)
-%filter_upd.covPois (covs of the Gaussian components of the PPP)
 %filter_upd.globHyp (matrix the number of rows is the number of global hypotheses and
 %the columns the number of Bernoulli components. Each row indicates the
 %index of the single target hypothesis for each Bernoulli component in the
-%global hypotheses. It is zero if this global hypothesis does not have a
-%particular Bernoulli component.
+%global hypotheses. 
 %filter_upd.globHypWeight: vector with the weights of the global hypotheses
 %filter_upd.tracks cell array with each of the Bernoulli components
 %filter_upd.tracks{i} contains the information of the ith Bernoulli component
@@ -61,8 +65,11 @@ squared_gospa_mis_t_tot=zeros(1,Nsteps); %Misdetection error
 %filter_upd.tracks{i}.eB: existence probabilities of the i-th Bernoulli component for each
 %single target hypothesis
 %filter_upd.tracks{i}.t_ini: time of birth of this Bernoulli component
-%filter_upd.tracks{i}.aHis: history of data associations (indices to
-%measurements or 0 if undetected)
+%filter_upd.tracks{i}.aHis{j}: history of initial birth component and data associations (indices to
+%measurements or 0 if undetected) for the j-th single target hypothesis of
+%the i-th Bernoulli component
+
+
 
 rand('seed',9)
 randn('seed',9)
@@ -72,32 +79,41 @@ randn('seed',9)
 for i=1:Nmc
     tic
     
-    filter_pred.weightPois=lambda0;
-    filter_pred.meanPois=means_b;
-    filter_pred.covPois=covs_b;
-       
+    %Initialisation
     filter_pred.tracks=cell(0,1);
-    filter_pred.globHyp=[];
-    filter_pred.globHypWeight=[];  
+    filter_pred.globHyp=ones(1,Ncom_b);
+    filter_pred.globHypWeight=1;
     N_hypotheses_t=zeros(1,Nmc);
-
-  
+    
+    
+    %Each Bernoulli component of the birth model starts a new track
+    for j=1:Ncom_b
+        filter_pred.tracks{j}.meanB{1}=means_b(:,j);
+        filter_pred.tracks{j}.covB{1}=P_ini;
+        filter_pred.tracks{j}.eB=e_ini(j);
+        filter_pred.tracks{j}.t_ini=1;
+        filter_pred.tracks{j}.aHis{1}=j;
+        filter_pred.tracks{j}.weightBLog=0;
+        
+    end
+    
+    
     %Simulate measurements
-    for k=1:Nsteps             
-        z=CreateMeasurement(X_truth(:,k),t_birth,t_death,p_d,l_clutter,Area,k,H,chol_R,Nx);        
+    for k=1:Nsteps
+        z=CreateMeasurement(X_truth(:,k),t_birth,t_death,p_d,l_clutter,Area,k,H,chol_R,Nx);
         z_t{k}=z;
     end
     
     %Perform filtering
     
     for k=1:Nsteps
-      
-        %Update
-        z=z_t{k};
         
-       
-        filter_upd=PoissonMBMtarget_update(filter_pred,z,H,R,p_d,k,gating_threshold,intensity_clutter,Nhyp_max);
-                   
+        %Update
+        z=z_t{k};     
+        
+      
+        filter_upd=MBMtarget_update2(filter_pred,z,H,R,p_d,k,gating_threshold,intensity_clutter,Nhyp_max);
+        
         %State estimation         
         switch type_estimator
             case 1
@@ -107,7 +123,7 @@ for i=1:Nmc
             case 3
                 X_estimate=PoissonMBMtarget_estimate3(filter_upd);
         end
-    
+        
         %Computation of squared GOSPA position error and its decomposition
         %Obtain ground truth state
         [squared_gospa,gospa_loc,gospa_mis,gospa_fal]=ComputeGOSPAerror(X_estimate,X_truth,t_birth,t_death,c_gospa,k);
@@ -118,24 +134,20 @@ for i=1:Nmc
         squared_gospa_false_t_tot(k)=squared_gospa_false_t_tot(k)+gospa_fal;
         squared_gospa_mis_t_tot(k)=squared_gospa_mis_t_tot(k)+gospa_mis;
         
-%         %Draw filter output
-%         DrawFilterEstimates(X_truth,t_birth,t_death,X_estimate,[100,200],[100,200],z)
-%         pause(0.5)
         
- 
         
         %Hypothesis reduction, pruning,normalisation
-        filter_upd_pruned=PoissonMBMtarget_pruning(filter_upd, T_pruning,T_pruningPois,Nhyp_max,existence_threshold);
+        filter_upd_pruned=MBMtarget_pruning(filter_upd,T_pruning,Nhyp_max,existence_threshold);
         filter_upd=filter_upd_pruned;
         
         N_hypotheses_t(k)=length(filter_upd.globHypWeight);
-        
+                
         %Prediction
-        filter_pred=PoissonMBMtarget_pred(filter_upd,F,Q,p_s,weights_b,means_b,covs_b);
-         
+        filter_pred=MBMtarget_pred(filter_upd,F,Q,p_s,means_b,P_ini,e_ini,Ncom_b,k);
+        
     end
- 
-    t=toc;       
+    
+    t=toc;
     display(['Completed iteration number ', num2str(i),' time ', num2str(t), ' sec'])
     
 end
