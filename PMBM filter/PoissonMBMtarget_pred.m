@@ -48,9 +48,7 @@ if(Ntracks>0)
         
     end
 else
-    filter_pred.weightPois=weights_b;
-    filter_pred.meanPois=means_b;
-    filter_pred.covPois=covs_b;
+
     filter_pred.tracks=cell(0,1);
     filter_pred.globHyp=[];
     filter_pred.globHypWeight=[];
