@@ -1,4 +1,4 @@
-This repository contains the Matlab implementations for different the following multi-target filtering/tracking algorithms
+This repository contains the Matlab implementations for the following multi-target filtering/tracking algorithms
 
 - Folder PMBM contains the implementations of the Poisson multi-Bernoulli mixture (PMBM) filter and the multi-Bernoulli mixture (MBM) filter described in
 
