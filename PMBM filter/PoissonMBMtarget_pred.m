@@ -42,7 +42,6 @@ if(Ntracks>0)
             filter_pred.tracks{i}.covB{j}=F*filter_upd.tracks{i}.covB{j}*F'+Q;
             filter_pred.tracks{i}.eB(j)=p_s*filter_upd.tracks{i}.eB(j);
             filter_pred.tracks{i}.aHis{j}=filter_upd.tracks{i}.aHis{j};
-            filter_pred.tracks{i}.weightBLog(j)=filter_upd.tracks{i}.weightBLog(j);
             
         end
         

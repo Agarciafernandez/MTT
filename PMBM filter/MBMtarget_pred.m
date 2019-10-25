@@ -24,7 +24,6 @@ for i=1:Ntracks
         filter_pred.tracks{i}.covB{j}=F*filter_upd.tracks{i}.covB{j}*F'+Q;
         filter_pred.tracks{i}.eB(j)=p_s*filter_upd.tracks{i}.eB(j);
         filter_pred.tracks{i}.aHis{j}=filter_upd.tracks{i}.aHis{j};
-        filter_pred.tracks{i}.weightBLog(j)=filter_upd.tracks{i}.weightBLog(j);
         
     end
     
@@ -38,6 +37,5 @@ for j=1:Ncom_b
     filter_pred.tracks{Ntracks+j}.eB=e_ini(j);
     filter_pred.tracks{Ntracks+j}.t_ini=k;
     filter_pred.tracks{Ntracks+j}.aHis{1}=j;
-    filter_pred.tracks{Ntracks+j}.weightBLog=0;
     
 end

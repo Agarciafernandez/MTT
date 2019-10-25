@@ -25,7 +25,7 @@ ScenarioWilliams15;
 
 Nx=4; %Single target state dimension
 %Filter
-T_pruning=10^(-4); %Threshold for pruning multi-Bernoulli mixtures weights
+T_pruning=0.0001;%Threshold for pruning multi-Bernoulli mixtures weights
 T_pruningPois=10^(-5); %Threshold for pruning PHD of the Poisson component
 Nhyp_max=200;  %Maximum number of hypotheses (MBM components)
 gating_threshold=20; %Threshold for gating
@@ -61,11 +61,13 @@ squared_gospa_mis_t_tot=zeros(1,Nsteps); %Misdetection error
 %filter_upd.tracks{i}.eB: existence probabilities of the i-th Bernoulli component for each
 %single target hypothesis
 %filter_upd.tracks{i}.t_ini: time of birth of this Bernoulli component
-%filter_upd.tracks{i}.aHis: history of data associations (indices to
-%measurements or 0 if undetected)
+%filter_upd.tracks{i}.aHis{j}: history of data associations (indices to
+%measurements or 0 if undetected) for the j-th single target hypothesis of
+%the i-th Bernoulli component
 
 rand('seed',9)
 randn('seed',9)
+
 
 %We go through all Monte Carlo runs
 
@@ -140,16 +142,14 @@ for i=1:Nmc
     
 end
 
-%Root mean square GOSPA errors at each time step (and its decomposition
-%into localisation errors, false target costs and missed target costs)
+%Root mean square GOSPA errors at each time step
 rms_gospa_t=sqrt(squared_gospa_t_tot/Nmc);
 rms_gospa_loc_t=sqrt(squared_gospa_loc_t_tot/Nmc);
 rms_gospa_false_t=sqrt(squared_gospa_false_t_tot/Nmc);
 rms_gospa_mis_t=sqrt(squared_gospa_mis_t_tot/Nmc);
 
 
-%Root mean square GOSPA errors across all time steps (and its decomposition
-%into localisation errors, false target costs and missed target costs)
+%Root mean square GOSPA errors across all time steps
 rms_gospa_tot=sqrt(sum(squared_gospa_t_tot)/(Nmc*Nsteps))
 rms_gospa_loc_tot=sqrt(sum(squared_gospa_loc_t_tot)/(Nmc*Nsteps))
 rms_gospa_false_tot=sqrt(sum(squared_gospa_false_t_tot)/(Nmc*Nsteps))

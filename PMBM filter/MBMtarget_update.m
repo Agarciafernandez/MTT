@@ -1,109 +1,14 @@
-function filter_upd=PoissonMBMtarget_update(filter_pred,z,H,R,p_d,k,gating_threshold,intensity_clutter,Nhyp_max)
+function filter_upd=MBMtarget_update(filter_pred,z,H,R,p_d,k,gating_threshold,intensity_clutter,Nhyp_max)
 
 %Author: Angel F. Garcia-Fernandez
+%MBM update is equal to PMBM update but setting Poisson component to zero
+%(no new tracks in the update)
 
 [Nz,Nx]=size(H);
 
 Nprev_tracks=length(filter_pred.tracks);
 
-%Poisson update
-filter_upd.weightPois=(1-p_d)*filter_pred.weightPois;
-filter_upd.meanPois=filter_pred.meanPois;
-filter_upd.covPois=filter_pred.covPois;
-
-
-
-%New track generation
-Nnew_tracks=size(z,2); %Number of new tracks (some may have existence probability equal to zero)
-
-
-for m=1:size(z,2)
-    z_m=z(:,m);
-    
-    %We go through all Poisson components and perform gating
-    
-    indices_new_tracks=[];
-    for i=1:length(filter_pred.weightPois)
-        
-        mean_i=filter_pred.meanPois(:,i);
-        cov_i=filter_pred.covPois(:,:,i);
-        
-        S_pred_i=H*cov_i*H'+R;
-        z_pred_i=H*mean_i;
-        
-        maha=(z_m-z_pred_i)'/S_pred_i*(z_m-z_pred_i);
-        
-        if(maha<gating_threshold)
-            %A track is created
-            indices_new_tracks=[indices_new_tracks,i];
-            
-        end
-        
-    end
-    
-    if(~isempty(indices_new_tracks))
-        %A new track is created for this measurement
-        meanB=zeros(Nx,1);
-        covB=zeros(Nx);
-        weightB=0;
-        
-        for i=1:length(indices_new_tracks)
-            index=indices_new_tracks(i);
-            mean_i=filter_pred.meanPois(:,index);
-            cov_i=filter_pred.covPois(:,:,index);
-                      
-            
-            S_pred_i=H*cov_i*H'+R;
-            z_pred_i=H*mean_i;
-                   
-            K_pred_i=cov_i*H'/S_pred_i;
-            P_u_i=(eye(Nx)-K_pred_i*H)*cov_i;
-            P_u_i=(P_u_i+P_u_i')/2;
-            x_u_i=mean_i+K_pred_i*(z_m-z_pred_i);
-            
-            weight_i=p_d*mvnpdf(z_m,z_pred_i,S_pred_i)*filter_pred.weightPois(index);
-            weightB=weightB+weight_i;
-            
-            %Gaussian mixture reduction
-            meanB=meanB+weight_i*x_u_i;
-            covB=covB+weight_i*P_u_i+weight_i*(x_u_i*x_u_i');
-        end
-        
-        meanB=meanB/weightB;
-        covB=covB/weightB-(meanB*meanB');
-        eB=weightB;
-        
-        %I add clutter to weight
-        weightB=weightB+intensity_clutter;
-        eB=eB/weightB;
-        
-        
-        filter_upd.tracks{Nprev_tracks+m}.meanB{1}=meanB;
-        filter_upd.tracks{Nprev_tracks+m}.covB{1}=covB;
-        filter_upd.tracks{Nprev_tracks+m}.eB=eB;
-        filter_upd.tracks{Nprev_tracks+m}.t_ini=k;
-        filter_upd.tracks{Nprev_tracks+m}.aHis{1}=m;
-        filter_upd.tracks{Nprev_tracks+m}.weightBLog=log(weightB);
-        
-    else
-        %The Bernoulli component has existence probability zero (it is
-        %clutter). It will be removed by pruning
-        weightB=intensity_clutter;
-        
-        filter_upd.tracks{Nprev_tracks+m}.eB=0;
-        filter_upd.tracks{Nprev_tracks+m}.weightBLog=log(weightB);
-        
-        filter_upd.tracks{Nprev_tracks+m}.meanB{1}=zeros(Nx,1);
-        filter_upd.tracks{Nprev_tracks+m}.covB{1}=zeros(Nx,Nx);
-        filter_upd.tracks{Nprev_tracks+m}.t_ini=k;
-        filter_upd.tracks{Nprev_tracks+m}.aHis{1}=m;
-
-    end
-    
-end
-
-
-
+Nnew_tracks=0;
 
 %We update all previous tracks with the measurements
 
@@ -173,6 +78,7 @@ for i=1:Nprev_tracks
                 
             end
             
+        
         end
         
     end
@@ -199,7 +105,7 @@ else
     
     for p=1:length(filter_pred.globHypWeight)
         %We create cost matrix for each global hypothesis.
-        cost_matrix_log=-Inf(Nprev_tracks+Nnew_tracks,size(z,2));
+        cost_matrix_log=-Inf(Nprev_tracks+size(z,2),size(z,2));
         cost_misdetection=zeros(Nprev_tracks,1);
         
         for i=1:Nprev_tracks
@@ -218,18 +124,16 @@ else
                 
                 %We remove the weight of the misdetection hypothesis to use Murty (Later this weight is added).
                 cost_matrix_log(i,1:length(indices_c))=weights_log-filter_upd.tracks{i}.weightBLog_k(index_hyp);
+                
+
                 cost_misdetection(i)=filter_upd.tracks{i}.weightBLog_k(index_hyp);
                               
                 
             end
-        end
+        end        
+        %Clutter hypotheses 
+        cost_matrix_log(Nprev_tracks+1:1+size(cost_matrix_log,1):end)=log(intensity_clutter);
         
-        %New targets
-        for i=Nprev_tracks+1:Nnew_tracks+Nprev_tracks
-            weights_log=filter_upd.tracks{i}.weightBLog;
-            index=filter_upd.tracks{i}.aHis{1};
-            cost_matrix_log(i,index)=weights_log;
-        end
         
                 
         %We remove -Inf rows and columns for performing optimal assignment. We take them
@@ -300,20 +204,22 @@ else
             end
         end
         
+        %The following code never runs for MBM filter (as Poisson component
+        %is zero and Nnew_tracks=0) so it is commented
         
-        for i=Nprev_tracks+1:Nnew_tracks+Nprev_tracks
-            
-            for j=1:size(opt_indices_trans,1)
-                index_track=find(opt_indices_trans(j,:)==i);
-                if(isempty(index_track))
-                    index=0;
-                else
-                    index=1;
-                end       
-                globHypProv(j,i)=index; %It is either 0 or 1
-            end
-        end
+%         for i=Nprev_tracks+1:Nnew_tracks+Nprev_tracks         
+%             for j=1:size(opt_indices_trans,1)
+%                 index_track=find(opt_indices_trans(j,:)==i);
+%                 if(isempty(index_track))
+%                     index=0;
+%                 else
+%                     index=1;
+%                 end       
+%                 globHypProv(j,i)=index; %It is either 0 or 1
+%             end
+%         end
         
+
         globHyp=[globHyp;globHypProv];
         
    

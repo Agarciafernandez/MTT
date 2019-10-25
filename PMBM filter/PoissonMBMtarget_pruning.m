@@ -49,7 +49,6 @@ for i=1:Ntracks
     filter_upd_pruned.tracks{i}.covB(index_remove)=[];
     filter_upd_pruned.tracks{i}.eB(index_remove)=[];
     filter_upd_pruned.tracks{i}.aHis(index_remove)=[];
-    filter_upd_pruned.tracks{i}.weightBLog(index_remove)=[];
     %We need to change the indices of globHyp_pruned to account for the
     %removal of single target hypotheses
     

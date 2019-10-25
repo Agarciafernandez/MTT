@@ -1,5 +1,10 @@
 function filter_upd=MBMtarget_update2(filter_pred,z,H,R,p_d,k,gating_threshold,intensity_clutter,Nhyp_max)
 
+% if k <= 10
+%     p_d = 0;
+% else
+%     p_d = P_D;
+% end
 
 %Author: Angel F. Garcia-Fernandez
 %MBM update is equal to PMBM update but setting Poisson component to zero
@@ -23,7 +28,6 @@ for i=1:Nprev_tracks
         cov_j=filter_pred.tracks{i}.covB{j};
         eB_j=filter_pred.tracks{i}.eB(j);
         aHis_j=filter_pred.tracks{i}.aHis{j};
-        weightBLog_j=filter_pred.tracks{i}.weightBLog(j);
         
         
         %Misdetection hypotheses
@@ -31,7 +35,6 @@ for i=1:Nprev_tracks
         filter_upd.tracks{i}.covB{j}=cov_j;
         filter_upd.tracks{i}.eB(j)=eB_j*(1-p_d)/(1-eB_j+eB_j*(1-p_d));
         filter_upd.tracks{i}.aHis{j}=[aHis_j,0];
-        filter_upd.tracks{i}.weightBLog(j)=weightBLog_j+log(1-eB_j+eB_j*(1-p_d));
         
         filter_upd.tracks{i}.weightBLog_k(j)=log(1-eB_j+eB_j*(1-p_d)); %Weight only at time step k (removing previous weight)
 
@@ -68,12 +71,10 @@ for i=1:Nprev_tracks
                 %Update of the weights
                 sub=z_m-z_pred_j;
                 quad=-0.5*sub'*iS*sub;                
-                filter_upd.tracks{i}.weightBLog(index_hyp)=weightBLog_j+log(eB_j*p_d)+quad-1/2*log(det_S)-Nz*log(2*pi)/2 ;
                 filter_upd.tracks{i}.weightBLog_k(index_hyp)=log(eB_j*p_d)+quad-1/2*log(det_S)-Nz*log(2*pi)/2 ;
 
                 
             else
-                filter_upd.tracks{i}.weightBLog(index_hyp)=-Inf;
                 filter_upd.tracks{i}.weightBLog_k(index_hyp)=-Inf;
 
                 

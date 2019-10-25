@@ -70,7 +70,6 @@ squared_gospa_mis_t_tot=zeros(1,Nsteps); %Misdetection error
 %the i-th Bernoulli component
 
 
-
 rand('seed',9)
 randn('seed',9)
 
@@ -93,7 +92,6 @@ for i=1:Nmc
         filter_pred.tracks{j}.eB=e_ini(j);
         filter_pred.tracks{j}.t_ini=1;
         filter_pred.tracks{j}.aHis{1}=j;
-        filter_pred.tracks{j}.weightBLog=0;
         
     end
     
@@ -152,16 +150,14 @@ for i=1:Nmc
     
 end
 
-%Root mean square GOSPA errors at each time step (and its decomposition
-%into localisation errors, false target costs and missed target costs)
+%Root mean square GOSPA errors at each time step
 rms_gospa_t=sqrt(squared_gospa_t_tot/Nmc);
 rms_gospa_loc_t=sqrt(squared_gospa_loc_t_tot/Nmc);
 rms_gospa_false_t=sqrt(squared_gospa_false_t_tot/Nmc);
 rms_gospa_mis_t=sqrt(squared_gospa_mis_t_tot/Nmc);
 
 
-%Root mean square GOSPA errors across all time steps (and its decomposition
-%into localisation errors, false target costs and missed target costs)
+%Root mean square GOSPA errors across all time steps
 rms_gospa_tot=sqrt(sum(squared_gospa_t_tot)/(Nmc*Nsteps))
 rms_gospa_loc_tot=sqrt(sum(squared_gospa_loc_t_tot)/(Nmc*Nsteps))
 rms_gospa_false_tot=sqrt(sum(squared_gospa_false_t_tot)/(Nmc*Nsteps))
