@@ -3,7 +3,7 @@ This repository contains the Matlab implementations for the following multi-targ
 - Folder PMBM contains the implementations of the Poisson multi-Bernoulli mixture (PMBM) filter and the multi-Bernoulli mixture (MBM) filter described in
 
 A. F. García-Fernández, J. L. Williams, K. Granström, and L. Svensson, “Poisson multi-Bernoulli mixture filter: direct derivation and implementation,” IEEE Transactions on Aerospace and Electronic Systems, vol. 54, no. 4, pp. 1883–1901, Aug. 2018.
-A. F. García-Fernández,Y. Xia , K. Granström, L. Svensson, J. L. Williams, "Gaussian implementation of the multi-Bernoulli mixture filter", in Proceedings of the 22nd International conference on Information Fusion, 2019.
+A. F. García-Fernández, Y. Xia , K. Granström, L. Svensson, J. L. Williams, "Gaussian implementation of the multi-Bernoulli mixture filter", in Proceedings of the 22nd International conference on Information Fusion, 2019.
 
 In order to run the filters, execute
 PoissonMBMtarget_filter.m for the PMBM filter
@@ -18,6 +18,10 @@ In order to run the filters, execute
 GM_TPHD_filter.m for the TPHD filter
 GM_TCPHD_filter.m for the TCPHD filter
 
+- Folder CD MTT filters contains the implementations of the continuous-discrete PMBM, continuous-discrete PHD, and continuous-discrete CPHD filters described in
+
+A. F. García-Fernández, S. Maskell, "Continuous-discrete multiple target filtering: PMBM, PHD and CPHD ?lter implementations," IEEE Transactions on Signal Processing, vol. 68, pp. 1300-1314, 2020.
+
 
 - Evaluation of the multi-target filters is based on the generalised optimal subpattern-assignment (GOSPA) and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets.
 
@@ -28,6 +32,8 @@ Video on GOSPA: https://www.youtube.com/watch?v=M79GTTytvCM
 - Evaluation of multi-target trackers is based on the LP trajectory metric for sets of trajectories and its decomposition into localisation errors for properly detected targets, and costs for false, missed targets, and track switches.
 
 A. S. Rahmathullah, A. F. García-Fernández, and L. Svensson, “A metric on the space of ?nite sets of trajectories for evaluation of multi-target tracking algorithms,” 2016. http://arxiv.org/abs/1605.01177
+
+- Open access versions of the above papers can be found in https://www.liverpool.ac.uk/electrical-engineering-and-electronics/staff/angel-garcia-fernandez/publications/
 
 - A relevant online course on multiple target tracking is provided here:
 

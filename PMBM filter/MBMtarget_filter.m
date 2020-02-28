@@ -132,6 +132,11 @@ for i=1:Nmc
         squared_gospa_false_t_tot(k)=squared_gospa_false_t_tot(k)+gospa_fal;
         squared_gospa_mis_t_tot(k)=squared_gospa_mis_t_tot(k)+gospa_mis;
         
+         %Draw filter output
+%        DrawFilterEstimates(X_truth,t_birth,t_death,X_estimate,[100,200],[100,200],z,k)
+%         pause(0.5)
+
+        
         
         
         %Hypothesis reduction, pruning,normalisation
