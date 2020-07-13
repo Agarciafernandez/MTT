@@ -1,9 +1,10 @@
 function [dxy, loc_cost, miss_cost, fa_cost, switch_cost]=LPTrajMetric_cluster(X, Y, c, p, gamma)
-
-
-%% function [dxy, loc_cost, miss_cost, fa_cost, switch_cost = LPTrajMetric(X, Y, c, p, gamma)
 % This function computes the LP metric between sets of trajectories defined
-% in https://arxiv.org/abs/1605.01177.
+% in
+% Á. F. García-Fernández, A. S. Rahmathullah and L. Svensson,"A Metric on the Space of Finite Sets of Trajectories for Evaluation of
+%  Multi-Target Tracking Algorithms," in IEEE Transactions on Signal Processing, vol. 68, pp. 3917-3928, 2020
+
+
 % -------------------------------------------------------------------------
 % Input:
 % X, Y: sets of trajctories which are structs as follows:
@@ -28,10 +29,10 @@ function [dxy, loc_cost, miss_cost, fa_cost, switch_cost]=LPTrajMetric_cluster(X
 % switch_cost: cost (to the p-th power) for switches over time, dimension '(T-1)x1'
 % -------------------------------------------------------------------------
 % Authors: Abu S. Rahmatullah and Ángel F. García-Fernández
-% This code uses clustering to compute the solution
+% This code uses clustering, see Sec. IV.D, to compute the solution.
 
 
-%%%%%%%%%% Parameters of use %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Input Parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 nx = size(X.xState, 3);
 ny = size(Y.xState, 3);
 T = size(X.xState, 2);
@@ -255,7 +256,7 @@ end
 
 
 function [dxy,loc_cost, miss_cost, fa_cost, switch_cost]=LP_metric_cluster(X,Y,DAB,nx,ny,nxny,nxny2,T,c,p,gamma)
-%%%%%%%%%%  variables to be estimated in LP  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%  variables to be calculated in LP  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % x = [W_1,1(1) W_2,1(1) .. W_nx+1,1(1), .. W_1,ny+1(1) W_2,ny+1(1) ...
 % W_nx+1,ny+1(1), W_1,1(T) W_2,1(T) .. W_nx+1,1(T), .. W_1,ny+1(T)
 % W_2,ny+1(T) ... W_nx+1,ny+1(T) e(1) .. e(T-1) h_11(1) .. h_nx,ny(1) ...
@@ -352,7 +353,7 @@ b = sparse((T-1)+nxny*(T-1)+nxny*(T-1),1);
 
 
 %%%%%%%%%%  optimisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-linProgOptions = optimoptions('linprog', 'Display','off');
+linProgOptions = optimoptions('linprog', 'Display','off'); %If this line returns an error, it may be required to install Matlab optimization toolbox
 [x, dxy] = linprog(f, A, b, Aeq, beq, lb, ub, [], linProgOptions);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -449,7 +450,6 @@ end
 loc_mask = zeros(size(w_mat));
 miss_mask = zeros(size(w_mat));
 fa_mask = zeros(size(w_mat));
-
 fa_miss_mask = zeros(size(w_mat)); %Accounts for false and missed target costs that arise for a localisation cost of c^p
 
 for t = 1:T

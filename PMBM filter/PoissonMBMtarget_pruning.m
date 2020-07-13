@@ -1,6 +1,11 @@
 function filter_upd_pruned=PoissonMBMtarget_pruning(filter_upd, T_pruning,T_pruningPois,Nhyp_max,existence_threshold)
 
+
+
 %Author: Angel F. Garcia-Fernandez 
+%This version removes individual Bernoulli components whose existence
+%is below existence_threshold
+
 
 filter_upd_pruned=filter_upd;
 
@@ -28,6 +33,21 @@ else
 end
 weights_pruned=weights_pruned(index_pruned)/sum(weights_pruned(index_pruned));
 globHyp_pruned=globHyp_pruned(index_pruned,:);
+
+%We remove Bernoulli components whose existence probability is below a
+%threshold, by setting the global hypotheses indices to zero (They will be
+%deleted by the next algorithms.
+Ntracks=length(filter_upd_pruned.tracks);
+index_remove=[];
+for i=1:Ntracks
+    eB_i=filter_upd_pruned.tracks{i}.eB;
+    remove=find(eB_i<existence_threshold);
+    list_remove=ismember(globHyp_pruned(:,i),remove);  
+    globHyp_pruned(list_remove,i)=0;
+end
+
+
+
 
 
 %We remove tracks(Bernoulli components) that do not take part in any global hypothesis
@@ -60,24 +80,26 @@ for i=1:Ntracks
     end
 end
 
+%This part is no longer necessary as Bernoullis with low probability are
+%removed in the previous step
 
-%We remove tracks (Bernoulli components) whose existence probability is very low in all its
-%single target hypotheses)
-Ntracks=length(filter_upd_pruned.tracks);
-index_remove=[];
-for i=1:Ntracks
-    eB_i=filter_upd_pruned.tracks{i}.eB;
-    remove=eB_i<existence_threshold;
-    if(sum(remove)==length(eB_i))
-        %We delete track (Bernoulli component)
-        index_remove=[index_remove,i];
-        
-    end
-    
-end
-filter_upd_pruned.tracks(index_remove)=[];
-%We adjust the global hypotheses
-globHyp_pruned(:,index_remove)=[];
+% %We remove tracks (Bernoulli components) whose existence probability is very low in all its
+% %single target hypotheses)
+% Ntracks=length(filter_upd_pruned.tracks);
+% index_remove=[];
+% for i=1:Ntracks
+%     eB_i=filter_upd_pruned.tracks{i}.eB;
+%     remove=eB_i<existence_threshold;
+%     if(sum(remove)==length(eB_i))
+%         %We delete track (Bernoulli component)
+%         index_remove=[index_remove,i];
+%         
+%     end
+%     
+% end
+% filter_upd_pruned.tracks(index_remove)=[];
+% %We adjust the global hypotheses
+% globHyp_pruned(:,index_remove)=[];
 
 %When we eliminate a track (Bernoulli component), there can be
 %duplicate global hypotheses that are merged into one by adding their

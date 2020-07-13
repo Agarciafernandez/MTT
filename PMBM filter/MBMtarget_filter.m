@@ -82,7 +82,7 @@ for i=1:Nmc
     filter_pred.tracks=cell(0,1);
     filter_pred.globHyp=ones(1,Ncom_b);
     filter_pred.globHypWeight=1;
-    N_hypotheses_t=zeros(1,Nmc);
+    N_hypotheses_t=zeros(1,Nsteps);
     
     
     %Each Bernoulli component of the birth model starts a new track

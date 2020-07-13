@@ -23,6 +23,7 @@ rand('seed',9)
 randn('seed',9)
 ScenarioWilliams15;
 
+
 Nx=4; %Single target state dimension
 %Filter
 T_pruning=0.0001;%Threshold for pruning multi-Bernoulli mixtures weights
@@ -81,7 +82,7 @@ for i=1:Nmc
     filter_pred.tracks=cell(0,1);
     filter_pred.globHyp=[];
     filter_pred.globHypWeight=[];  
-    N_hypotheses_t=zeros(1,Nmc);
+    N_hypotheses_t=zeros(1,Nsteps);
 
   
     %Simulate measurements
