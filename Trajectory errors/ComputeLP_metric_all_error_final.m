@@ -1,11 +1,7 @@
-function [squared_LP_metric, LP_metric_loc, LP_metric_miss, LP_metric_fal, LP_metric_switch]=ComputeLP_metric_all_error(X_estimate,t_b_estimate, length_estimate,X_truth,t_birth,t_death,c_gospa,gamma_track_metric,k,Nx)
+function [squared_LP_metric, LP_metric_loc, LP_metric_miss, LP_metric_fal, LP_metric_switch]=ComputeLP_metric_all_error_final(X_estimate,t_b_estimate, length_estimate,X_truth,t_birth,t_death,c_gospa,gamma_track_metric,k,Nx)
 
-%We calculate the error of the estimated set of all trajectories at the current time step normalised
-%by the current time window, see, for example, (74) in
-%Á. F. García-Fernández, L. Svensson, J. L. Williams, Y. Xia, K. Granström,
-%"Trajectory Poisson multi-Bernoulli filters," accepted in IEEE-TSP.
-
-
+%Computes the trajectory metric errors of the estimate set of all
+%trajectories at the final time step directly, without normalisation w.r.t. the time window.
 
 %%We use the LP Trajectory metric for all trajectories up to the current
 %%time step
@@ -43,8 +39,8 @@ Y.xState=Y.xState([1,3],:,:);
 [dxy, loc_cost, miss_cost, fa_cost, switch_cost] = LPTrajMetric_cluster(X, Y, c_gospa, 2, gamma_track_metric);
 
 
-squared_LP_metric=dxy^2/k; %normalised by k
-LP_metric_loc=sum(loc_cost)/k;
-LP_metric_miss=sum(miss_cost)/k;
-LP_metric_fal=sum(fa_cost)/k;
-LP_metric_switch=sum(switch_cost)/k;
+squared_LP_metric=dxy^2;
+LP_metric_loc=loc_cost;
+LP_metric_miss=miss_cost;
+LP_metric_fal=fa_cost;
+LP_metric_switch=switch_cost;

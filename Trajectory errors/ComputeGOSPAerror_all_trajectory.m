@@ -18,15 +18,17 @@ for k=1:k_end
 
     %We obtain Y
     alive_targets_index=find(and(k>=t_b_estimate,k<=t_b_estimate+length_estimate-1));
-
+    
     Y_k=zeros(Nx,length(alive_targets_index));
     
     for i=1:length(alive_targets_index)    
         index_loc=k-t_b_estimate(alive_targets_index(i))+1;       
         Y_k(:,i)=X_estimate{alive_targets_index(i)}((index_loc-1)*Nx+1:index_loc*Nx);      
     end
-    
-    Y_k_pos=Y_k([1 3],:);
+    %Rremove nan values in the estimate (which are created by holes in the
+    %trajectories)
+    index_nonan=~isnan(Y_k(1,:)); 
+    Y_k_pos=Y_k([1 3],index_nonan);
     
     [d_gospa, ~, decomp_cost] = GOSPA(X_k, Y_k_pos, 2, c_gospa, 2);
 

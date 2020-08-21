@@ -26,8 +26,12 @@ for k=1:k_end
         index_loc=k-t_b_estimate(alive_targets_index(i))+1;       
         Y_k(:,i)=X_estimate{alive_targets_index(i)}((index_loc-1)*Nx+1:index_loc*Nx);      
     end
+    %Rremove nan values in the estimate (which are created by holes in the
+    %trajectories)
+    index_nonan=~isnan(Y_k(1,:)); 
+    Y_k_pos=Y_k([1 3],index_nonan);
     
-    Y_k_pos=Y_k([1 3],:); 
+    
     [d_gospa, ~, decomp_cost] = GOSPA(X_k, Y_k_pos, 2, c_gospa, 2); 
     squared_gospa=squared_gospa+d_gospa^2;
     gospa_loc=gospa_loc+decomp_cost.localisation;

@@ -2,7 +2,8 @@ function [squared_LP_metric, LP_metric_loc, LP_metric_mis, LP_metric_fal, LP_met
 
 %This function computes the squared error of the alive trajectories and its decomposition using the LP
 %Trajectory metric (normalised by the current time window, which is from 1
-%to k)  https://arxiv.org/abs/1605.01177
+%to k), to be able to compute Eq. (36) in
+%Á. F. García-Fernández and L. Svensson, "Trajectory PHD and CPHD Filters," in IEEE Transactions on Signal Processing, vol. 67, no. 22, pp. 5702-5714, 15 Nov.15, 2019
 %Author: Angel F. Garcia-Fernandez
 
 X_multi_format_prov=reshape(X_truth(:,1:k),Nx,size(X_truth,1)/Nx,k);

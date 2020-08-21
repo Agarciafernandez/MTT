@@ -36,8 +36,8 @@ lambda0=3;
 
 
 Nmc=100; %Number of Monte Carlo runs to compute error
-
 c_gospa=10; %Parameter c of the GOSPA metric. We also consider p=2 and alpha=2
+gamma_track_metric=1; %Parameter gamma of the metric for sets of trajectories (only when we use this metric)
 
 
 
