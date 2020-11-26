@@ -45,19 +45,19 @@ REFERENCES
 
 [7] A. F. García-Fernández and L. Svensson, “Trajectory PHD and CPHD filters”, IEEE Transactions on Signal Processing, vol. 67, no. 22, pp. 5702-5714,Nov. 2019.
 
-[8]K. Granström, L. Svensson, Y. Xia, J. Williams and Á. F. García-Femández, "Poisson Multi-Bernoulli Mixture Trackers: Continuity Through Random Finite Sets of Trajectories," 2018 21st International Conference on Information Fusion (FUSION), Cambridge, 2018.
+[8] K. Granström, L. Svensson, Y. Xia, J. Williams and Á. F. García-Fernández, "Poisson Multi-Bernoulli Mixture Trackers: Continuity Through Random Finite Sets of Trajectories," 2018 21st International Conference on Information Fusion (FUSION), Cambridge, 2018.
 
-[9] K. Granström, L. Svensson, Y. Xia, J. Williams and Á. F. García-Femández, "Poisson Multi-Bernoulli Mixtures for Sets of Trajectories," https://arxiv.org/abs/1912.08718
+[9] K. Granström, L. Svensson, Y. Xia, J. Williams and Á. F. García-Fernández, "Poisson Multi-Bernoulli Mixtures for Sets of Trajectories," https://arxiv.org/abs/1912.08718
 
 [10] Y. Xia, K. Granström, L. Svensson, A. F. García-Fernández, and J. L. Wlliams, “Multi-scan implementation of the trajectory Poisson multi-Bernoulli mixture filter,” Journal of Advances in Information Fusion. Special Issue on Multiple Hypothesis Tracking., vol. 14, no. 2, pp. 213–235, Dec. 2019.
 
-[11]A. F. García-Fernández, L. Svensson, J. L. Williams, Y. Xia, K. Granström,  “Trajectory multi-Bernoulli filters for multi-target tracking based on sets of trajectories” in 23rd International Conference on Information Fusion, 2020.
+[11] A. F. García-Fernández, L. Svensson, J. L. Williams, Y. Xia, K. Granström,  “Trajectory multi-Bernoulli filters for multi-target tracking based on sets of trajectories” in 23rd International Conference on Information Fusion, 2020.
 
 [12] A. S. Rahmathullah, A. F. García-Fernández, and L. Svensson, “Generalized optimal sub-pattern assignment metric,” in 20th International Conference on Information Fusion, 2017.
 
 [13] A. F. García-Fernández, and L. Svensson, "Spooky effect in optimal OSPA estimation and how GOSPA solves it," in 22nd International Conference on Information Fusion, 2019.
 
-[14] Video on GOSPA: https://www.youtube.com/watch?v=M79GTTytvCM
+[14] L. Svensson, Presentation on GOSPA: https://www.youtube.com/watch?v=M79GTTytvCM
 
 [15] Á. F. García-Fernández, A. S. Rahmathullah and L. Svensson, "A Metric on the Space of Finite Sets of Trajectories for Evaluation of Multi-Target Tracking Algorithms," in IEEE Transactions on Signal Processing, vol. 68, pp. 3917-3928, 2020.
 

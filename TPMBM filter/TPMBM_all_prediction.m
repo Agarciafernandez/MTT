@@ -66,11 +66,11 @@ if(Ntracks>0)
             
             %We first check if the trajectory is alive (can be alive)
             prob_length_j=filter_upd.tracks{i}.prob_length{j};
-            prob_alive=p_s*prob_length_j(1);
             
-           
-            
-            if(prob_alive>T_alive)
+            if(prob_length_j(1)>T_alive)
+                
+               prob_alive=p_s*prob_length_j(1);
+
                 %Prediction of the mean
                 filter_pred.tracks{i}.meanB{j}=[filter_upd.tracks{i}.meanB{j};F*filter_upd.tracks{i}.meanB{j}(end-Nx+1:end)];
                 
@@ -97,10 +97,7 @@ if(Ntracks>0)
                 
                 %We update the probability of length
                 filter_pred.tracks{i}.prob_length{j}=[prob_alive;(1-p_s)*prob_length_j(1);filter_upd.tracks{i}.prob_length{j}(2:end)];
-                
-                
-              
-                
+                    
                 
                 %We update the past means of the trajectories
                 filter_pred.tracks{i}.mean_past{j}{1}=filter_upd.tracks{i}.meanB{j};
@@ -113,8 +110,7 @@ if(Ntracks>0)
                 
             else
                %We just copy paste the previous Bernoulli component
-               %(accounting for the change in the dead probability)
-               prob_length_j(1)=prob_alive;               
+
                filter_pred.tracks{i}.meanB{j}=filter_upd.tracks{i}.meanB{j};
                filter_pred.tracks{i}.covB{j}=filter_upd.tracks{i}.covB{j};
                filter_pred.tracks{i}.eB(j)=filter_upd.tracks{i}.eB(j);
@@ -122,10 +118,7 @@ if(Ntracks>0)
                filter_pred.tracks{i}.prob_length{j}=prob_length_j;
                filter_pred.tracks{i}.mean_past{j}=filter_upd.tracks{i}.mean_past{j};
             end
-            
-            
-            
-            
+                        
             
         end
         

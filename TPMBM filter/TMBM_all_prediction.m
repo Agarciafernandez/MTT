@@ -25,9 +25,13 @@ if(Ntracks>0)
             
             %We first check if the trajectory is alive (can be alive)
             prob_length_j=filter_upd.tracks{i}.prob_length{j};
-            prob_alive=p_s*prob_length_j(1);
             
-            if(prob_alive>T_alive)
+            prob_length_j=filter_upd.tracks{i}.prob_length{j};
+            
+            if(prob_length_j(1)>T_alive)
+                
+               prob_alive=p_s*prob_length_j(1);
+            
                 %Prediction of the mean
                 filter_pred.tracks{i}.meanB{j}=[filter_upd.tracks{i}.meanB{j};F*filter_upd.tracks{i}.meanB{j}(end-Nx+1:end)];
                 
@@ -70,8 +74,7 @@ if(Ntracks>0)
                 
             else
                %We just copy paste the previous Bernoulli component
-               %(accounting for the change in the dead probability)
-               prob_length_j(1)=prob_alive;               
+                              
                filter_pred.tracks{i}.meanB{j}=filter_upd.tracks{i}.meanB{j};
                filter_pred.tracks{i}.covB{j}=filter_upd.tracks{i}.covB{j};
                filter_pred.tracks{i}.eB(j)=filter_upd.tracks{i}.eB(j);
