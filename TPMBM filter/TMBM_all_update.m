@@ -210,6 +210,16 @@ else
         %We run Murty algorithm (making use of Hungarian algorithm to
         %solve the assginment problem). We call the function by using transpose and negative value
         [opt_indices_temp,nlcost]= murty(-cost_matrix_log,kbest);
+        
+        
+            
+            %Option 2: We run MURTY algorithm (making use of Hungarian algorithm to
+            %solve the assginment problem). We call the function by using transpose and negative value
+            %kBest2DAssign by David F. Crouse
+            [opt_indices_temp,~,nlcost]=kBest2DAssign(-cost_matrix_log,kbest);
+            opt_indices_temp=opt_indices_temp';
+            nlcost=nlcost';
+        
         opt_indices_temp(opt_indices_temp>num_valid_meas) = 0;
         
         opt_indices = zeros(size(opt_indices_temp,1),Nprev_tracks);

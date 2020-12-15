@@ -60,7 +60,7 @@ if(length(weights)>1)
             t_ini=filter_upd.tracks{i}.t_ini;
             prob_length_fused=zeros(k-t_ini+1,1);
             
- 
+            
             
             %We go through all local hypotheses and update the
             %probability of existence and the last state
@@ -79,10 +79,10 @@ if(length(weights)>1)
             Nhyp_i=length(filter_upd.tracks{i}.eB);
             
             for p=1:Nhyp_i
-               indeces_hyp_p=globHyp(:,i)==p;
-               weight_p=sum(weights(indeces_hyp_p));
-               if(weight_p>0)
-                   prob_length_j=filter_upd.tracks{i}.prob_length{p};
+                indeces_hyp_p=globHyp(:,i)==p;
+                weight_p=sum(weights(indeces_hyp_p));
+                if(weight_p>0)
+                    prob_length_j=filter_upd.tracks{i}.prob_length{p};
                     prob_alive_j=prob_length_j(1);
                     
                     prod_we=weight_p*filter_upd.tracks{i}.eB(p);
@@ -102,30 +102,20 @@ if(length(weights)>1)
                         mean_past_fused=filter_upd.tracks{i}.mean_past{p};
                         %We update prob_length_fused
                         prob_length_fused=prob_length_fused+prod_we*prob_length_j;
-                                          
+                        
                     else
                         prob_length_fused(1)=prob_length_fused(1)+prod_we*prob_alive_j;
                     end
-          
-               end
-     
+                    
+                end
+                
             end
-
-     
+            
+            
             mean_fused=mean_fused/r_fused_k;   %When we consider all trajectories, we use r_fused_k, not r_fused
             mean_fused_Lscan=mean_fused(end-l_vector_i+1:end);
             cov_fused=cov_fused/r_fused_k-(mean_fused_Lscan*mean_fused_Lscan');
             prob_length_fused=prob_length_fused/r_fused; %Where we have r_fused
-            
-            
-            %prob_length_fused=prob_length_fused/sum(prob_length_fused);
-            
-                        if(sum(prob_length_fused)<1-10^(-5))
-                            display('error')
-                            %I should renormalise this anyway.
-                        end
-            
-            
             
             
             filter_upd_pmb.tracks{i}.eB=r_fused;

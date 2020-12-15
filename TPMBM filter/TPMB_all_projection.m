@@ -112,19 +112,14 @@ if(length(weights)>1)
                             prob_length_fused(1)=prob_length_fused(1)+prod_we*prob_alive_j;
                         end
                         
-                   
+                        
                     end
                 end
-                    mean_fused=mean_fused/r_fused_k;   %When we consider all trajectories, we use r_fused_k, not r_fused
-                    mean_fused_Lscan=mean_fused(end-l_vector_i+1:end);
-                    cov_fused=cov_fused/r_fused_k-(mean_fused_Lscan*mean_fused_Lscan');
-                    prob_length_fused=prob_length_fused/r_fused; %Where we have r_fused
-                    
-                    
-                    if(sum(prob_length_fused)<1-10^(-5))
-                        display('error')
-                        %I should renormalise this anyway.
-                    end
+                mean_fused=mean_fused/r_fused_k;   %When we consider all trajectories, we use r_fused_k, not r_fused
+                mean_fused_Lscan=mean_fused(end-l_vector_i+1:end);
+                cov_fused=cov_fused/r_fused_k-(mean_fused_Lscan*mean_fused_Lscan');
+                prob_length_fused=prob_length_fused/r_fused; %Where we have r_fused
+                
                 
                 
                 

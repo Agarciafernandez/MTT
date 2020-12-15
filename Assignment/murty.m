@@ -56,6 +56,8 @@ for j=2:k_best
     empty_indices=find(N_included+N_excluded==0);
 
     if(j==2)
+        
+        
         %First iteration
         for i=1:n-j+2 %In Murty's paper index goes up to n-1, as the cost matrix is square. IF it is not square, we go up to n.
                     
@@ -88,6 +90,8 @@ for j=2:k_best
                 cost_nodes(i)=0;                
             else
           
+              
+                
                 [opt_assign, C_ini] = assignmentoptimal(C_prov);
                 cost_nodes(i)=sum(C(Included_rows(1:i-1,i)+size(C,1)*(Included_columns(1:i-1,i)-1)))+C_ini;
                 

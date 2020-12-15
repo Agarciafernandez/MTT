@@ -321,10 +321,16 @@ else
             kbest=ceil(Nhyp_max*filter_pred.globHypWeight(p));
             
             
-            %We run Murty algorithm (making use of Hungarian algorithm to
+             %Option 1: We run Murty algorithm (making use of Hungarian algorithm to
             %solve the assginment problem). We call the function by using transpose and negative value
+            %[opt_indices,nlcost]=murty(-cost_matrix_log_trimmed',kbest);
             
-            [opt_indices,nlcost]=murty(-cost_matrix_log_trimmed',kbest);
+            %Option 2: We run MURTY algorithm (making use of Hungarian algorithm to
+            %solve the assginment problem). We call the function by using transpose and negative value
+            %kBest2DAssign by David F. Crouse
+            [opt_indices,~,nlcost]=kBest2DAssign(-cost_matrix_log_trimmed',kbest);
+            opt_indices=opt_indices';
+            nlcost=nlcost';
             
             %Optimal indices without removing Inf rows
             opt_indices_trans=Inf(size(opt_indices,1),size(z,2));

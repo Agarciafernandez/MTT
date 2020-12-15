@@ -37,7 +37,7 @@ for i=1:Nprev_tracks
         filter_upd.tracks{i}.aHis{j}=[aHis_j,0];
         
         filter_upd.tracks{i}.weightBLog_k(j)=log(1-eB_j+eB_j*(1-p_d)); %Weight only at time step k (removing previous weight)
-
+        
         
         %KF moments
         S_pred_j=H*cov_j*H'+R;
@@ -70,13 +70,13 @@ for i=1:Nprev_tracks
                 
                 %Update of the weights
                 sub=z_m-z_pred_j;
-                quad=-0.5*sub'*iS*sub;                
+                quad=-0.5*sub'*iS*sub;
                 filter_upd.tracks{i}.weightBLog_k(index_hyp)=log(eB_j*p_d)+quad-1/2*log(det_S)-Nz*log(2*pi)/2 ;
-
+                
                 
             else
                 filter_upd.tracks{i}.weightBLog_k(index_hyp)=-Inf;
-
+                
                 
             end
             
@@ -95,7 +95,7 @@ if(Nprev_tracks==0)
     filter_upd.globHypWeight=1;
     filter_upd.globHyp=ones(1,0);
     filter_upd.tracks=cell(0,1);
-        
+    
 else
     
     globWeightLog=[];
@@ -112,7 +112,7 @@ else
             %We generate the cost matrix for measurements
             
             if(index_hyp~=0)
-                              
+                
                 index_max=length(filter_upd.tracks{i}.weightBLog_k);
                 indices=index_hyp+Nhyp_i*(1:size(z,2));
                 indices_c=indices<=index_max;
@@ -122,12 +122,12 @@ else
                 
                 %We remove the weight of the clutter intensity to use Murty (Later this weight is added).
                 cost_matrix_log(i,1:length(indices_c))=weights_log-log(intensity_clutter);
-
+                
                 cost_misdetection(i)=filter_upd.tracks{i}.weightBLog_k(index_hyp);
-                              
+                
             end
-        end        
-        %Clutter hypotheses 
+        end
+        %Clutter hypotheses
         cost_temp = -Inf(Nprev_tracks);
         cost_temp(logical(eye(Nprev_tracks))) = cost_misdetection;
         
@@ -141,42 +141,50 @@ else
         num_valid_meas = length(indices_valid_column);
         
         cost_matrix_log = [cost_matrix_log(indices_valid_row_boolean,indices_valid_column_boolean) cost_temp(indices_valid_row_boolean,indices_valid_row_boolean)];
-%         cost_matrix_log = [cost_matrix_log cost_temp];
-
+        %         cost_matrix_log = [cost_matrix_log cost_temp];
+        
         globWeightLog_pred=log(filter_pred.globHypWeight(p));
         
         if(isempty(cost_matrix_log))
-            %One hypothesis: All targets are misdetected, no need for Murty                 
+            %One hypothesis: All targets are misdetected, no need for Murty
             opt_indices=zeros(1,Nprev_tracks);
             globWeightLog=[globWeightLog,sum(cost_misdetection)+globWeightLog_pred+log(intensity_clutter)*size(z,2)];
-      
+            
         else
-        
-        
-        %Number of new global hypotheses from this global hypothesis
-        kbest=ceil(Nhyp_max*filter_pred.globHypWeight(p));
-        
-        %We run Murty algorithm (making use of Hungarian algorithm to
-        %solve the assginment problem). We call the function by using transpose and negative value
-        [opt_indices_temp,nlcost]= murty(-cost_matrix_log,kbest);
-        opt_indices_temp(opt_indices_temp>num_valid_meas) = 0;
-        
-        opt_indices = zeros(size(opt_indices_temp,1),Nprev_tracks);
-        opt_indices(:,indices_valid_row_boolean) = opt_indices_temp;
-        
-        for i = 1:size(opt_indices,1)
-            for j = 1:Nprev_tracks
-                if opt_indices(i,j)~=0
-                    opt_indices(i,j) = indices_valid_column(opt_indices(i,j));
-%                     temp = indices_valid_column(opt_indices(i,j));
-%                     opt_indices(i,j) = opt_indices(i,j) + temp - sum(indices_valid_column_boolean(1:temp));
+            
+            
+            %Number of new global hypotheses from this global hypothesis
+            kbest=ceil(Nhyp_max*filter_pred.globHypWeight(p));
+            
+            %We run Murty algorithm (making use of Hungarian algorithm to
+            %        [opt_indices_temp,nlcost]= murty(-cost_matrix_log,kbest);
+            
+            %Option 2: We run MURTY algorithm (making use of Hungarian algorithm to
+            %solve the assginment problem). We call the function by using transpose and negative value
+            %kBest2DAssign by David F. Crouse
+            [opt_indices_temp,~,nlcost]=kBest2DAssign(-cost_matrix_log,kbest);
+            opt_indices_temp=opt_indices_temp';
+            nlcost=nlcost';
+            
+            
+            opt_indices_temp(opt_indices_temp>num_valid_meas) = 0;
+            
+            opt_indices = zeros(size(opt_indices_temp,1),Nprev_tracks);
+            opt_indices(:,indices_valid_row_boolean) = opt_indices_temp;
+            
+            for i = 1:size(opt_indices,1)
+                for j = 1:Nprev_tracks
+                    if opt_indices(i,j)~=0
+                        opt_indices(i,j) = indices_valid_column(opt_indices(i,j));
+                        %                     temp = indices_valid_column(opt_indices(i,j));
+                        %                     opt_indices(i,j) = opt_indices(i,j) + temp - sum(indices_valid_column_boolean(1:temp));
+                    end
                 end
             end
-        end
-        
-        
-        globWeightLog=[globWeightLog,-nlcost+globWeightLog_pred+log(intensity_clutter)*size(z,2)+sum(cost_misdetection(~indices_valid_row_boolean))];
-        
+            
+            
+            globWeightLog=[globWeightLog,-nlcost+globWeightLog_pred+log(intensity_clutter)*size(z,2)+sum(cost_misdetection(~indices_valid_row_boolean))];
+            
         end
         
         %We write the corresponding global hypothesis
@@ -197,14 +205,14 @@ else
         
         globHyp=[globHyp;globHypProv];
         
-   
+        
     end
     filter_upd.globHyp=globHyp;
     %Normalisation of weights of global hypotheses
     globWeight=exp(globWeightLog-max(max(globWeightLog)));
     globWeight=globWeight/sum(globWeight);
     filter_upd.globHypWeight=globWeight;
-      
+    
 end
 
 
