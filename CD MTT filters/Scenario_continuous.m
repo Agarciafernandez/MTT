@@ -27,7 +27,7 @@ P_a=diag([50 1 50 1].^2);
 %We generate the time intervals between different measurements (we take Nsteps measurements) 
 %delta_tk (which is known but samples from an exponential distribution with parameter mu_delta)
 mu_measurement=1; %Note that this is related to time through 1/mu_measurement
-delta_tk_t=exprnd(1/mu_measurement,100,1);
+delta_tk_t=exprnd(1/mu_measurement,Nsteps,1);
 tk=cumsum(delta_tk_t); %Time at which is measurement is obtained
 
 %Uncomment to plot the time differences between measurements
