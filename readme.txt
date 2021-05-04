@@ -1,6 +1,6 @@
 This repository contains the Matlab implementations for the following multi-target filtering/tracking algorithms:
 
-- Folder PMBM contains the implementations of the Poisson multi-Bernoulli mixture (PMBM) filter and the multi-Bernoulli mixture (MBM) filter described in [1]-[3].
+- Folder PMBM contains the implementations of the Poisson multi-Bernoulli mixture (PMBM) filter [1][2], the multi-Bernoulli mixture (MBM) filter [3], and (track-oriented) Poisson multi-Bernoulli (PMB) [1].
 
 
 In order to run the filters, execute PMBMtarget_filter.m for the PMBM filter MBMtarget_filter.m for the MBM filter
@@ -31,9 +31,9 @@ https://www.youtube.com/channel/UCa2-fpj6AV8T6JK1uTRuFpw
 
 REFERENCES
 
-[1] A. F. García-Fernández, J. L. Williams, K. Granström, and L. Svensson, “Poisson multi-Bernoulli mixture filter: direct derivation and implementation,” IEEE Transactions on Aerospace and Electronic Systems, vol. 54, no. 4, pp. 1883–1901, Aug. 2018.
+[1] J. L. Williams, "Marginal multi-bernoulli filters: RFS derivation of MHT, JIPDA, and association-based member," in IEEE Transactions on Aerospace and Electronic Systems, vol. 51, no. 3, pp. 1664-1687, July 2015.
 
-[2] J. L. Williams, "Marginal multi-bernoulli filters: RFS derivation of MHT, JIPDA, and association-based member," in IEEE Transactions on Aerospace and Electronic Systems, vol. 51, no. 3, pp. 1664-1687, July 2015.
+[2] A. F. García-Fernández, J. L. Williams, K. Granström, and L. Svensson, “Poisson multi-Bernoulli mixture filter: direct derivation and implementation,” IEEE Transactions on Aerospace and Electronic Systems, vol. 54, no. 4, pp. 1883–1901, Aug. 2018.
 
 [3] A. F. García-Fernández, Y. Xia , K. Granström, L. Svensson, J. L. Williams, "Gaussian implementation of the multi-Bernoulli mixture filter", in Proceedings of the 22nd International conference on Information Fusion, 2019.
 
