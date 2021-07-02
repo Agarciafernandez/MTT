@@ -88,7 +88,7 @@ for i=1:Nmc
     filter_pred.tracks=cell(0,1);
     filter_pred.globHyp=[];
     filter_pred.globHypWeight=[];
-    N_hypotheses_t=zeros(1,Nmc);
+    N_hypotheses_t=zeros(1,Nsteps);
     
     
     

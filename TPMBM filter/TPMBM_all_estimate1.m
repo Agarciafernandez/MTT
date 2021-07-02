@@ -2,11 +2,11 @@ function [X_estimate,t_b_estimate,length_estimate]=TPMBM_all_estimate1(filter_up
 
 %Author: Angel F. Garcia Fernandez
 
-
 %Option 1: one picks global hypothesis with highest weight and then takes the
-%estimates above a certain threshold
+%trajectory Bernoullis  above a certain threshold
 
-%Then, we estimate the trajectory with highest probability of existence
+%Then, for each Bernoulli, we estimate the trajectory end time with highest probability of existence
+
 X_estimate=cell(0,1);
 t_b_estimate=[];
 length_estimate=[];

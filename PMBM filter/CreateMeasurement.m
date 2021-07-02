@@ -1,8 +1,8 @@
-function z=CreateMeasurement(X_multi_k,t_birth,t_desth,p_d,l_clutter,Area,k,H,chol_R,Nx)
+function z=CreateMeasurement(X_multi_k,t_birth,t_death,p_d,l_clutter,Area,k,H,chol_R,Nx)
 
 %Author: Angel F. Garcia-Fernandez
 
-index_targets=and(t_birth<=k,t_desth>k);
+index_targets=and(t_birth<=k,t_death>k);
 
 detected_targets=rand(1,length(index_targets))<p_d;
 

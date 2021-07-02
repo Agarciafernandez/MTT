@@ -1,8 +1,7 @@
 function filter_upd=TMBM_all_update(filter_pred,z,H,R,p_d,k,gating_threshold,intensity_clutter,Nhyp_max,Lscan,T_alive)
 
-%TMBM update for alive trajectories. Same as TPMBM but with Poisson
-%intensity equal to zero (with an improvement for this the multi-Bernoulli case done by Yuxuan Xia for the MBM filter for sets of targets)
-
+%TMBM update for all trajectories. Same as TPMBM but with Poisson
+%intensity equal to zero (with an improvement for how Murty is done for this case)
 %Author: Angel F. Garcia-Fernandez
 
 [Nz,Nx]=size(H);
@@ -209,7 +208,7 @@ else
         
         %We run Murty algorithm (making use of Hungarian algorithm to
         %solve the assginment problem). We call the function by using transpose and negative value
-        [opt_indices_temp,nlcost]= murty(-cost_matrix_log,kbest);
+        %[opt_indices_temp,nlcost]= murty(-cost_matrix_log,kbest);
         
         
             
