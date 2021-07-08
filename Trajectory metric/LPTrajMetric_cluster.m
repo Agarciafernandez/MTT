@@ -377,7 +377,7 @@ locCostMat  = zeros(nx+1, ny+1, T);
 for t = 1:T
     for xind = 1:nx+1
         if (xind <= nx) % xind not dummy
-            if (t>=X.tVec(xind)) && (t<=(X.tVec(xind)+X.iVec(xind)-1))
+            if (t>=X.tVec(xind)) && (t<=(X.tVec(xind)+X.iVec(xind)-1)) && ~isnan(X.xState(1,t,xind))
                 % if X_xind exists at t
                 for yind = 1:ny+1
                     if (yind <= ny) && (t >= Y.tVec(yind)) && ...
@@ -392,8 +392,7 @@ for t = 1:T
                 end
             else        % if X_xind does not exist at t
                 for yind = 1:ny
-                    if (t >= Y.tVec(yind)) && ...
-                            (t <= (Y.iVec(yind) + Y.tVec(yind) - 1))
+                    if (t >= Y.tVec(yind)) && t <= Y.iVec(yind) + Y.tVec(yind) - 1 &&  ~isnan(Y.xState(1,t,yind))
                         % if Y_yind exists at t
                         locCostMat(xind,yind,t) = tmpCost;
                     end
@@ -401,8 +400,7 @@ for t = 1:T
             end
         else    % xind is dummy
             for yind = 1:ny
-                if (t >= Y.tVec(yind)) && ...
-                        (t <= (Y.iVec(yind) + Y.tVec(yind) - 1))
+                if (t >= Y.tVec(yind)) && t <= Y.iVec(yind) + Y.tVec(yind) - 1 &&  ~isnan(Y.xState(1,t,yind))
                     % if Y_yind exists at t
                     locCostMat(xind,yind,t) = tmpCost;
                 end
@@ -452,68 +450,48 @@ miss_mask = zeros(size(w_mat));
 fa_mask = zeros(size(w_mat));
 fa_miss_mask = zeros(size(w_mat)); %Accounts for false and missed target costs that arise for a localisation cost of c^p
 
+
 for t = 1:T
-    % localisation and miss cost calculations
-    for xind = 1:nx
-        if (t>=X.tVec(xind)) && (t<=(X.tVec(xind)+X.iVec(xind)-1))
-            % if X_xind exists at t
-            for yind = 1:ny
-                if (yind <= ny) && (t >= Y.tVec(yind)) && ...
-                        (t <= (Y.iVec(yind) + Y.tVec(yind) - 1))
-                    % if Y_yind exists at t
-                    if all(~isnan(X.xState(:,t,xind))) && ...
-                            all(~isnan(Y.xState(:,t,yind)))
-                        % there is no hole in x or y at this time
+    for xind = 1:nx+1
+        if (xind <= nx) % xind not dummy
+            if (t>=X.tVec(xind)) && (t<=(X.tVec(xind)+X.iVec(xind)-1)) && ~isnan(X.xState(1,t,xind))
+                % if X_xind exists at t
+                for yind = 1:ny+1
+                    if (yind <= ny) && (t >= Y.tVec(yind)) && t <= (Y.iVec(yind) + Y.tVec(yind) - 1) && ~isnan(Y.xState(1,t,yind))
+                        % if Y_yind exists at t
                         %%% add to localisation cost at the time based on
                         %%% weight (unless the weight is c^p
-                        
                         if(locCostMat(xind, yind, t)<2*tmp_cost)
                             loc_mask(xind, yind, t) = 1;
                         else
                             fa_miss_mask(xind, yind, t) = 1;
                         end
-                    elseif any(isnan(X.xState(:,t,xind))) && ...
-                            all(~isnan(Y.xState(:,t,yind)))
-                        % there is a hole in x but no hole in y
-                        fa_mask(xind, yind, t) = 1;
-                    elseif all(~isnan(X.xState(:,t,xind))) && ...
-                            any(isnan(Y.xState(:,t,yind)))
-                        % there is no hole in x but a hole in y
-                        miss_mask(xind, yind, t) = 1;
-                    end
-                else % yind does not exist
-                    
-                    %%% add to miss cost at the time
-                    miss_mask(xind, yind, t) = 1;
-                end
-            end
-            %%% add to miss cost at the time for yind = ny+1
-            yind = ny+1;
-            miss_mask(xind, yind, t) = 1;
-        end
-    end
-    
-    for yind = 1:ny
-        if (t>=Y.tVec(yind)) && (t<=(Y.tVec(yind)+Y.iVec(yind)-1))
-            % if Y_yind exists at t
-            if all(~isnan(Y.xState(:, t, yind))) % no hole in y
-                for xind = 1:nx
-                    if ~((xind <= nx) && (t >= X.tVec(xind)) && ...
-                            (t <= (X.iVec(xind) + X.tVec(xind) - 1)))
-                        % if X_xind does not exist at t
                         
-                        %%% add to fa cost at the time
+                        
+                    else % yind does not exist or yind is dummy
+                        miss_mask(xind, yind, t) = 1;
+                        
+                    end
+                end
+            else        % if X_xind does not exist at t
+                for yind = 1:ny
+                    if (t >= Y.tVec(yind)) && t <= Y.iVec(yind) + Y.tVec(yind) - 1 &&  ~isnan(Y.xState(1,t,yind))
+                        % if Y_yind exists at t
                         fa_mask(xind, yind, t) = 1;
                     end
                 end
             end
-            
-            %%% add to fa cost at the time for xind = nx+1
-            xind = nx+1;
-            fa_mask(xind, yind, t) = 1;
+        else    % xind is dummy
+            for yind = 1:ny
+                if (t >= Y.tVec(yind)) && t <= Y.iVec(yind) + Y.tVec(yind) - 1 &&  ~isnan(Y.xState(1,t,yind))
+                    % if Y_yind exists at t
+                    fa_mask(xind, yind, t) = 1;
+                end
+            end
         end
     end
 end
+
 
 loc_cost = squeeze(sum(sum(locCostMat .* w_mat .* loc_mask, 1), 2));
 miss_cost = tmp_cost * squeeze(sum(sum(w_mat .* miss_mask, 1), 2))+ tmp_cost * squeeze(sum(sum(w_mat .* fa_miss_mask, 1), 2));
