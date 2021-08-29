@@ -4,7 +4,7 @@ function X_estimate=PoissonMBMtarget_estimate2(filter_upd)
 
 
 %We do as in the delta-GLMB: First MAP of cardinality, them MAP of
-%cardinality with highest weight 
+%cardinality with highest weight
 
 if(~isempty(filter_upd.globHyp))
     
@@ -13,7 +13,7 @@ if(~isempty(filter_upd.globHyp))
     Nhyp=length(globHypWeight);
     N_tracks=length(filter_upd.tracks);
     
-    pcard_tot=zeros(1,N_tracks+1);
+    pcard_tot=zeros(1,N_tracks+1); %Cardinality distribution of the PMBM density
     eB_tot=zeros(Nhyp,N_tracks);
     for j=1:Nhyp
         eB_hyp_j=zeros(1,N_tracks);

@@ -15,6 +15,7 @@ In order to run the filters, execute GM_TPHD_filter.m and GM_TCPHD_filter.m
 
 - Folder TPMBM filter contains the implementations of the trajectory PMBM (TPMBM) filter [8][9], trajectory MBM (TMBM) filter [10], trajectory PMB (TPMB) filter [4] and trajectory MB (TMB) filter [11]. Each of these filters can be run to estimate the set of alive trajectories or the set of all trajectories at each time step (running a different file).
 
+- Folder OOS TPMBM filter contains the implementations of the continuous-discrete TPMBM and continuous-discrete  TPMB filters with out-of-sequence measurements [16].
 
 
 - Evaluation of the multi-target filters is based on the generalised optimal subpattern-assignment (GOSPA) and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [12][13][14].
@@ -60,6 +61,8 @@ REFERENCES
 [14] L. Svensson, Presentation on GOSPA: https://www.youtube.com/watch?v=M79GTTytvCM
 
 [15] Á. F. García-Fernández, A. S. Rahmathullah and L. Svensson, "A Metric on the Space of Finite Sets of Trajectories for Evaluation of Multi-Target Tracking Algorithms," in IEEE Transactions on Signal Processing, vol. 68, pp. 3917-3928, 2020.
+
+[16] Á. F. García-Fernández and W. Yi, "Continuous-Discrete Multiple Target Tracking With Out-of-Sequence Measurements," in IEEE Transactions on Signal Processing, vol. 69, pp. 4699-4709, 2021
 
 
 
