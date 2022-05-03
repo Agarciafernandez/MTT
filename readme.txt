@@ -1,22 +1,23 @@
 This repository contains the Matlab implementations for the following multi-target filtering/tracking algorithms:
 
-- Folder PMBM contains the implementations of the Poisson multi-Bernoulli mixture (PMBM) filter [1][2], the multi-Bernoulli mixture (MBM) filter [3], and (track-oriented) Poisson multi-Bernoulli (PMB) [1].
+- Folder "PMBM" contains the implementations of the Poisson multi-Bernoulli mixture (PMBM) filter [1][2], the multi-Bernoulli mixture (MBM) filter [3], and (track-oriented) Poisson multi-Bernoulli (PMB) [1].
 
 
 In order to run the filters, execute PMBMtarget_filter.m for the PMBM filter MBMtarget_filter.m for the MBM filter
 
 PMBMtarget_filter_tracks_all.m runs the PMBM filter with sequential track formation, linking target states estimates from the same Bernoulli component, which is uniquely identified by a start time and measurement. This information can be made explicit in the posterior via auxiliary variables [4]. Note that Bayesian track formation is obtained via densities on sets of trajectories, not linking target state estimates [5].
 
-- Folder CD MTT filters contains the implementations of the continuous-discrete PMBM, continuous-discrete PHD, and continuous-discrete CPHD filters described in [6].
+- Folder "CD MTT filters" contains the implementations of the continuous-discrete PMBM, continuous-discrete PHD, and continuous-discrete CPHD filters described in [6].
 
-- Folder TPHD contains the implementations of the trajectory probability hypothesis density (TPHD) filter and the trajectory cardinality PHD (TCPHD) filter for sets of trajectories in [7].
+- Folder "TPHD" contains the implementations of the trajectory probability hypothesis density (TPHD) filter and the trajectory cardinality PHD (TCPHD) filter for sets of trajectories in [7].
 
 In order to run the filters, execute GM_TPHD_filter.m and GM_TCPHD_filter.m
 
-- Folder TPMBM filter contains the implementations of the trajectory PMBM (TPMBM) filter [8][9], trajectory MBM (TMBM) filter [10], trajectory PMB (TPMB) filter [4] and trajectory MB (TMB) filter [11]. Each of these filters can be run to estimate the set of alive trajectories or the set of all trajectories at each time step (running a different file).
+- Folder "TPMBM filter" contains the implementations of the trajectory PMBM (TPMBM) filter [8][9], trajectory MBM (TMBM) filter [10], trajectory PMB (TPMB) filter [4] and trajectory MB (TMB) filter [11]. Each of these filters can be run to estimate the set of alive trajectories or the set of all trajectories at each time step (running a different file).
 
-- Folder OOS TPMBM filter contains the implementations of the continuous-discrete TPMBM and continuous-discrete  TPMB filters with out-of-sequence measurements [16].
+- Folder "OOS TPMBM filter" contains the implementations of the continuous-discrete TPMBM and continuous-discrete  TPMB filters with out-of-sequence measurements [16].
 
+- Folder "Tree PMBM - Spawning" contains the implementations of the Tree PMBM and Tree MBM filters for multiple target tracking with spawning [17].
 
 - Evaluation of the multi-target filters is based on the generalised optimal subpattern-assignment (GOSPA) and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [12][13][14].
 
@@ -64,7 +65,7 @@ REFERENCES
 
 [16] Á. F. García-Fernández and W. Yi, "Continuous-Discrete Multiple Target Tracking With Out-of-Sequence Measurements," in IEEE Transactions on Signal Processing, vol. 69, pp. 4699-4709, 2021
 
-
+[17] Á. F. García-Fernández and L. Svensson, "Tracking Multiple Spawning Targets Using Poisson Multi-Bernoulli Mixtures on Sets of Tree Trajectories," in IEEE Transactions on Signal Processing, vol. 70, pp. 1987-1999, 2022.
 
 
 

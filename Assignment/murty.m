@@ -24,8 +24,8 @@ assignments=zeros(k_best,n);
 costs=zeros(1,k_best);
 
 %Start with the optimal assignment
-[assignment_jni,C_ini]=assignmentoptimal(C);
-assignments(1,:)=assignment_jni';
+[assignment_ini,C_ini]=assignmentoptimal(C);
+assignments(1,:)=assignment_ini';
 costs(1)=C_ini;
 
 if(k_best==1)
@@ -47,7 +47,7 @@ optimal_assignment_nodes=zeros(n,N_list_max);
 
 %assignemnt_act denotes the assignment for which we perform the
 %partitioning
-assignment_act=assignment_jni';
+assignment_act=assignment_ini';
 
 
 for j=2:k_best
