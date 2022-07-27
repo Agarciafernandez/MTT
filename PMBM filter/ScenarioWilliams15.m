@@ -4,7 +4,7 @@ numtruth = 4; % number of targets
 % Initialise model
 T = 1;
 F = kron(eye(2),[1 T; 0 1]);
-Q = 0.01*kron(eye(2),[T^3/3 T^2/2; T^2/2 T]);
+Q = 0.02*kron(eye(2),[T^3/3 T^2/2; T^2/2 T]);
 H = kron(eye(2),[1 0]);
 R =1* eye(2);
 chol_R=chol(R)';
