@@ -1,11 +1,11 @@
-function z=CreateMeasurement_range_bearing(X_multi_k,t_birth,t_desth,p_d,l_clutter,k,Nx,x_s,kappa,R_range,range_min,delta_range)
+function z=CreateMeasurement_range_bearing(X_truth_k,t_birth,t_desth,p_d,l_clutter,k,Nx,x_s,kappa,R_range,range_min,delta_range)
 %This function generates range bearings measurements where range is
 %distributed as Gaussian and bearings as VMF.
 
 %Author: Angel F. Garcia-Fernandez
-X_multi_k_r=reshape(X_multi_k,Nx,size(X_multi_k,2)*size(X_multi_k,1)/Nx);
+X_truth_k_r=reshape(X_truth_k,Nx,size(X_truth_k,2)*size(X_truth_k,1)/Nx);
 
-range_targets=sqrt((X_multi_k_r(1,:)-x_s(1)).^2+(X_multi_k_r(3,:)-x_s(2)).^2);
+range_targets=sqrt((X_truth_k_r(1,:)-x_s(1)).^2+(X_truth_k_r(3,:)-x_s(2)).^2);
 
 p_d_targets=p_d(range_targets);
 
@@ -22,7 +22,7 @@ N_clutter_measurements=poissrnd(l_clutter);
 %indicated as a 2-D measurement and then range)
 
 %Angular measurement
-mean_z=[X_multi_k_r(1,detected_targets)-x_s(1);X_multi_k_r(3,detected_targets)-x_s(2)];
+mean_z=[X_truth_k_r(1,detected_targets)-x_s(1);X_truth_k_r(3,detected_targets)-x_s(2)];
 mean_theta=atan2(mean_z(2,:),mean_z(1,:));
 %We generate VMF
 z_real_angle=zeros(1,N_detected_targets);
