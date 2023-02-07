@@ -1,4 +1,4 @@
-function z=CreateMeasurement_range_bearing(X_truth_k,t_birth,t_desth,p_d,l_clutter,k,Nx,x_s,kappa,R_range,range_min,delta_range)
+function z=CreateMeasurement_range_bearing(X_truth_k,t_birth,t_death,p_d,l_clutter,k,Nx,x_s,kappa,R_range,range_min,delta_range)
 %This function generates range bearings measurements where range is
 %distributed as Gaussian and bearings as VMF.
 
@@ -10,7 +10,7 @@ range_targets=sqrt((X_truth_k_r(1,:)-x_s(1)).^2+(X_truth_k_r(3,:)-x_s(2)).^2);
 p_d_targets=p_d(range_targets);
 
 %Targets must be alive to create a measurement
-index_targets=and(t_birth<=k,t_desth>k);
+index_targets=and(t_birth<=k,t_death>k);
 
 detected_targets=rand(1,length(index_targets))<p_d_targets;
 detected_targets=and(detected_targets,index_targets);
