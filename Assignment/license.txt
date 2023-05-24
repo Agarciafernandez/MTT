@@ -1,5 +1,5 @@
 The file murty.m was developed by Angel Garcia-Fernandez.
-The files with name kBest2DAssign are compiled versions of the C++ files developed by David Crouse
+The file kBest2DAssign.m and its compiled versions kBest2DAssign were developed by David Crouse
 https://github.com/USNavalResearchLaboratory/TrackerComponentLibrary
 
 D. F. Crouse, "The Tracker Component Library: Free Routines for Rapid Prototyping," IEEE Aerospace and Electronic Systems Magazine, vol. 32, no. 5, pp. 18-27, May. 2017.

@@ -32,6 +32,14 @@ In particular, the filters perform the updates using the iterated posterior line
 
 To run the filters, execute TPMBM_all_filter_range_bearing.m, TPMB_all_filter_range_bearing.m, TPMBM_alive_filter_range_bearing.m, TPMB_alive_filter_range_bearing.m, PMBM_filter_range_bearing.m , PMB_filter_range_bearing.m 
 
+- Folder "PMBM arbitrary clutter" contains the point-targeet PMBM and PMB implementations with negative binomial clutter in [23].
+
+To run the filters, execute "PMBMtarget_filter_nb_clutter" and "PMBtarget_filter_nb_clutter"
+
+The code for the extended target example in [23] can be found at 
+
+https://github.com/yuhsuansia/Extented-target-PMBM-filter-independent-clutter-sources
+
 
 - Evaluation of the multi-target filters is based on the generalised optimal subpattern-assignment (GOSPA) and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [12][13][14].
 
@@ -93,3 +101,5 @@ REFERENCES
 [21] Á. F. García-Fernández, J. Ralph, P. Horridge, S. Maskell, "Gaussian trajectory PMBM filter with nonlinear measurements based on posterior linearisation" in Proceedings of the 25th International Conference on Information Fusion, 2022.
 
 [22] Á. F. García-Fernández, F. Tronarp and S. Särkkä, "Gaussian Target Tracking With Direction-of-Arrival von Mises–Fisher Measurements," in IEEE Transactions on Signal Processing, vol. 67, no. 11, pp. 2960-2972, June, 2019.
+
+[23] Á. F. García-Fernández, Y. Xia, L. Svensson, "Poisson multi-Bernoulli mixture filter with general target-generated measurements and arbitrary clutter", IEEE Transactions on Signal Processing, vol. 71, 2023.
