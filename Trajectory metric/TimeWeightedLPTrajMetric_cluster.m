@@ -178,13 +178,13 @@ for i=1:length(Clusters)
         fa_cost(index1)=fa_cost(index1)+c^p/2*time_weights1(index1);
         miss_cost(index1)=miss_cost(index1)+c^p/2*time_weights1(index1);
         
-        %Missed targets
+        %False targets
         index2=and(DAB_i==c^p/2,or(isnan_X,no_exist_X));
         %fa_cost(index2)=fa_cost(index2)+c^p/2;
         
         fa_cost(index2)=fa_cost(index2)+c^p/2*time_weights1(index2);
         
-        %False targets
+        %Missed targets
         index3=and(DAB_i==c^p/2,or(isnan_Y,no_exist_Y));
         %miss_cost(index3)=miss_cost(index3)+c^p/2;
         

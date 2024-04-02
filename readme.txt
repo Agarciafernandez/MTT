@@ -44,7 +44,7 @@ https://github.com/yuhsuansia/Extented-target-PMBM-filter-independent-clutter-so
 - Evaluation of the multi-target filters is based on the generalised optimal subpattern-assignment (GOSPA) and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [12][13][14].
 
 
-- Evaluation of multi-target trackers (filters that estimate a set of trajectories) is based on the LP trajectory metric for sets of trajectories and its decomposition into localisation errors for properly detected targets, and costs for false, missed targets, and track switches [15].
+- Evaluation of multi-target trackers (filters that estimate a set of trajectories) is based on the linear programming implementation of the trajectory GOSPA metric (GOSPA metric for sets of trajectories) and its decomposition into localisation errors for properly detected targets, and costs for false, missed targets, and track switches [15].
 
 
 - Open access versions of the above papers can be found in https://www.liverpool.ac.uk/electrical-engineering-and-electronics/staff/angel-garcia-fernandez/publications/
