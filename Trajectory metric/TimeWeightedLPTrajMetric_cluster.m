@@ -398,7 +398,11 @@ b = sparse((T-1)+nxny*(T-1)+nxny*(T-1),1);
 
 %%%%%%%%%%  optimisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 linProgOptions = optimoptions('linprog', 'Display','off'); %If this line returns an error, it may be required to install Matlab optimization toolbox
-[x, dxy] = linprog(f, A, b, Aeq, beq, lb, ub, [], linProgOptions);
+%For Matlab2023b, the linear program is solved via
+[x, dxy] = linprog(f, A, b, Aeq, beq, lb, ub, linProgOptions);
+
+%For previous versions of Matlab, the linear program was solved via
+%[x, dxy] = linprog(f, A, b, Aeq, beq, lb, ub, [], linProgOptions);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

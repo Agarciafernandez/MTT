@@ -153,11 +153,13 @@ for i=1:length(Clusters)
         fa_cost(index1)=fa_cost(index1)+c^p/2;
         miss_cost(index1)=miss_cost(index1)+c^p/2;
         
-        %Missed targets
+        %False targets (when X does not exist)
         index2=and(DAB_i==c^p/2,or(isnan_X,no_exist_X));
         fa_cost(index2)=fa_cost(index2)+c^p/2;
         
-        %False targets
+
+
+        %Missed targets (when Y does not exist)
         index3=and(DAB_i==c^p/2,or(isnan_Y,no_exist_Y));
         miss_cost(index3)=miss_cost(index3)+c^p/2;
         
@@ -354,7 +356,12 @@ b = sparse((T-1)+nxny*(T-1)+nxny*(T-1),1);
 
 %%%%%%%%%%  optimisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 linProgOptions = optimoptions('linprog', 'Display','off'); %If this line returns an error, it may be required to install Matlab optimization toolbox
-[x, dxy] = linprog(f, A, b, Aeq, beq, lb, ub, [], linProgOptions);
+%For Matlab2023b, the linear program is solved via
+[x, dxy] = linprog(f, A, b, Aeq, beq, lb, ub, linProgOptions);
+
+%For previous versions of Matlab, the linear program was solved via
+%[x, dxy] = linprog(f, A, b, Aeq, beq, lb, ub, [], linProgOptions);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
