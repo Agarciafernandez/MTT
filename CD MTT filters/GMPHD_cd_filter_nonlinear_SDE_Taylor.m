@@ -1,22 +1,14 @@
-%Implementation of the Continuous-discrete Gaussian mixture PHD filter
-%(CD-PHD) filter described in
+%Implemenation of the Continuous-discrete Gaussian mixture PHD filter
+%(CD-PHD) filter with non-linear dynamics following an SDE
 
-%A. F. GarcÌa-Fern·ndez, S. Maskell, "Continuous-discrete multiple target filtering: PMBM, PHD and CPHD ?lter implementations," IEEE Transactions on Signal Processing, vol. 68, pp. 1300-1314, 2020.
-% Open access version in https://www.liverpool.ac.uk/electrical-engineering-and-electronics/staff/angel-garcia-fernandez/publications/
+%A. F. Garc√≠a-Fern√°ndez, S. Sarkka, "Gaussian multi-target filtering with
+%target dynamics driven by a stochastic differential equation", in IEEE
+%Transactions on Signal Processing, 2025.
 
+%For the specific example we use an nonlinear ODE with a re-entry tracking
+%problem
 
-
-%Performance is measured with the GOSPA metric (alpha=2) and its
-%decomposition into localisation errors for properly detected targets,
-%and costs for missed targets and false targets (only possible for alpha=2).
-
-%A. S. Rahmathullah, ¡. F. GarcÌa-Fern·ndez and L. Svensson, "Generalized optimal sub-pattern assignment metric," 2017 20th International Conference on Information Fusion (Fusion), Xi'an, 2017, pp. 1-8.
-% Short video on GOSPA
-% https://www.youtube.com/watch?v=M79GTTytvCM
-
-
-%Author: Angel F. Garcia-Fernandez
-
+%Author: √Ångel F. Garc√≠a-Fern√°ndez
 
 
 clear
@@ -27,10 +19,12 @@ addpath('..\PHD filter')
 rand('seed',9)
 randn('seed',9)
 
-Scenario_continuous;
+Scenario_continuous_nonlinear_SDE;
 
+%Scenario_continuous_nonlinear_SDE_v2;
 
 %Required for GM-PHD filter code
+
 Ncom_max=30;
 T_pruning=10^(-5);
 T_merging=0.1;
@@ -42,13 +36,7 @@ squared_gospa_loc_t_tot=zeros(1,Nsteps); %Localisation error
 squared_gospa_fal_t_tot=zeros(1,Nsteps); %False target error
 squared_gospa_mis_t_tot=zeros(1,Nsteps); %Misdetection error
 
-%We obtain the appearance birth paramaters partitioned for position and
-%velocity (required for the best Gaussian match)
-mean_a_p=mean_a(1:2:end);
-mean_a_v=mean_a(2:2:end);
-P_a_pp=P_a(1:2:end,1:2:end);
-P_a_vv=P_a(2:2:end,2:2:end);
-P_a_pv=P_a(1:2:end,2:2:end);
+
 
 %Probability of survival at each time step
 p_s_k_t=exp(-mu*delta_tk_t);
@@ -72,7 +60,7 @@ for i=1:Nmc
         z_t{k}=z;
     end
     
-    [mean_b_k,cov_b_k]=BirthParameters_cd(q,delta_tk_t(1),mean_a_p,mean_a_v,P_a_pp,P_a_vv,P_a_pv,mu);
+    [mean_b_k,cov_b_k]=BirthParameters_nonlinear_SDE_Taylor(mean_a,P_a, f_drift, F_drift,Q_c, mu, delta_tk_t(1));
     
     %Initialisation
     Ncom_k=1;
@@ -113,7 +101,8 @@ for i=1:Nmc
         squared_gospa_mis_t_tot(k)=squared_gospa_mis_t_tot(k)+gospa_mis;
         
         %Draw filter output
-        %      DrawFilterEstimates(X_truth,t_birth,t_death,X_estimate,[-100,1000],[-100,1000],z,k)
+        %DrawFilterEstimates(X_truth,t_birth,t_death,X_estimate,[0,Area(1)],[0,Area(2)],z,k)
+
         %         pause
         
         %Pruning
@@ -122,16 +111,17 @@ for i=1:Nmc
         
         %Prediction
         if(k<Nsteps)
-            %We calculate the parameters of the transition density (bith
-            %model, F, Q, and p_s
-            [mean_b_k,cov_b_k]=BirthParameters_cd(q,delta_tk_t(k+1),mean_a_p,mean_a_v,P_a_pp,P_a_vv,P_a_pv,mu);
+            %We calculate the mean and covariance of the birth model
+            [mean_b_k,cov_b_k]=BirthParameters_nonlinear_SDE_Taylor(mean_a,P_a, f_drift, F_drift,Q_c, mu, delta_tk_t(k+1));
+
+            %Probability of survival
             p_s_k=p_s_k_t(k+1);
-            F_k=kron(eye(2),[1 delta_tk_t(k+1);0 1]);
-            Q_k=q*kron(eye(2),[delta_tk_t(k+1)^3/3 delta_tk_t(k+1)^2/2; delta_tk_t(k+1)^2/2 delta_tk_t(k+1)]);
-            
+
+
+           
             
             %Prediction (survival targets)
-            [weights_k, means_k,covs_k,Ncom_k,logical_active_k]=GMPHD_filter_prediction(weights_u, means_u,covs_u,Ncom_u,logical_actives_u,F_k,Q_k,p_s_k);
+            [weights_k, means_k,covs_k,Ncom_k,logical_active_k]=GMPHD_filter_prediction_nonlinear_SDE_Taylor(weights_u, means_u,covs_u,Ncom_u,logical_actives_u,f_drift, F_drift,Q_c,p_s_k,delta_tk_t(k+1),Nx);
             %Prediction (we add the new bon targets)
             
             %Ncom_b must be equal to one in this implementation
@@ -164,7 +154,7 @@ rms_gospa_loc_tot=sqrt(sum(squared_gospa_loc_t_tot)/(Nmc*Nsteps))
 rms_gospa_fal_tot=sqrt(sum(squared_gospa_fal_t_tot)/(Nmc*Nsteps))
 rms_gospa_mis_tot=sqrt(sum(squared_gospa_mis_t_tot)/(Nmc*Nsteps))
 
-%save(['PHD_cd_pd',int2str(100*p_d),'_R',int2str(R(1,1)),'_clut',int2str(l_clutter),'_lambda',int2str(100*lambda),'_mu',int2str(100*mu)])
+save(['PHD_cd_nonlinear_Taylor_pd',int2str(100*p_d),'_R',int2str(R(1,1)),'_clut',int2str(l_clutter),'_lambda',int2str(100*lambda),'_mu',int2str(100*mu)])
 
 if(plot_figures==1)
     

@@ -1,4 +1,4 @@
-%Implemenation of the Continuous-discrete Gaussian mixture CPHD filter
+%Implementation of the Continuous-discrete Gaussian mixture CPHD filter
 %(CD-CPHD) filter described in
 
 %A. F. García-Fernández, S. Maskell, "Continuous-discrete multiple target filtering: PMBM, PHD and CPHD ?lter implementations," IEEE Transactions on Signal Processing, vol. 68, pp. 1300-1314, 2020.
@@ -15,8 +15,8 @@
 % https://www.youtube.com/watch?v=M79GTTytvCM
 
 
-%Copyright (c) 2020, Angel F. Garcia-Fernandez
-%All rights reserved.
+%Author: Angel F. Garcia-Fernandez
+
 
 
 

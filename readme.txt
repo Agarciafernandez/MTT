@@ -9,7 +9,15 @@ PMBMtarget_filter_tracks_all.m runs the PMBM filter with sequential track format
 
 - Folder "CD MTT filters" contains the implementations of the continuous-discrete PMBM, continuous-discrete PHD, and continuous-discrete CPHD filters described in [6].
 
-To run the filters, execute PoissonMBMtarget_cd_filter.m, GMPHD_cd_filter.m, GMCPHD_cd_filter.m.
+To run the filters, execute PMBMtarget_cd_filter.m, GMPHD_cd_filter.m, GMCPHD_cd_filter.m.
+
+- Folder "CD MTT filters" also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for general linear stochastic differential equations described in [24].
+
+To run the filters, execute PMBMtarget_cd_filter_linear_SDE.m, PMBtarget_cd_filter_linear_SDE.m, GMPHD_cd_filter_linear_SDE.m, GMCPHD_cd_filter_linear_SDE.m
+
+- Folder "CD MTT filters" also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for non-linear stochastic differential equations described in [24].
+
+To run the filters, execute PMBMtarget_cd_filter_nonlinear_SDE_Taylor.m, PMBtarget_cd_filter_nonlinear_SDE_Taylor.m, GMPHD_cd_filter_nonlinear_SDE_Taylor.m, GMCPHD_cd_filter_nonlinear_SDE_Taylor.m
 
 - Folder "TPHD" contains the implementations of the trajectory probability hypothesis density (TPHD) filter and the trajectory cardinality PHD (TCPHD) filter for sets of trajectories in [7].
 
@@ -70,11 +78,11 @@ REFERENCES
 
 [6] A. F. García-Fernández, S. Maskell, "Continuous-discrete multiple target filtering: PMBM, PHD and CPHD filter implementations," IEEE Transactions on Signal Processing, vol. 68, pp. 1300-1314, 2020.
 
-[7] A. F. García-Fernández and L. Svensson, “Trajectory PHD and CPHD filters”, IEEE Transactions on Signal Processing, vol. 67, no. 22, pp. 5702-5714,Nov. 2019.
+[7] A. F. García-Fernández and L. Svensson, “Trajectory PHD and CPHD filters”, IEEE Transactions on Signal Processing, vol. 67, no. 22, pp. 5702-5714, Nov. 2019.
 
 [8] K. Granström, L. Svensson, Y. Xia, J. Williams and Á. F. García-Fernández, "Poisson Multi-Bernoulli Mixture Trackers: Continuity Through Random Finite Sets of Trajectories," 2018 21st International Conference on Information Fusion (FUSION), Cambridge, 2018.
 
-[9] K. Granström, L. Svensson, Y. Xia, J. Williams and Á. F. García-Fernández, "Poisson Multi-Bernoulli Mixtures for Sets of Trajectories," https://arxiv.org/abs/1912.08718
+[9] K. Granström, L. Svensson, Y. Xia, J. Williams and Á. F. García-Fernández, "Poisson Multi-Bernoulli Mixtures for Sets of Trajectories," in IEEE Transactions on Aerospace and Electronic Systems, 2025.
 
 [10] Y. Xia, K. Granström, L. Svensson, A. F. García-Fernández, and J. L. Wlliams, “Multi-scan implementation of the trajectory Poisson multi-Bernoulli mixture filter,” Journal of Advances in Information Fusion. Special Issue on Multiple Hypothesis Tracking., vol. 14, no. 2, pp. 213–235, Dec. 2019.
 
@@ -96,10 +104,12 @@ REFERENCES
 
 [19] F. Tronarp, Á. F. García-Fernández and S. Särkkä, "Iterative Filtering and Smoothing in Nonlinear and Non-Gaussian Systems Using Conditional Moments,"  in IEEE Signal Processing Letters, vol. 25, no. 3, pp. 408-412, March 2018.
 
-[20] A. F García-Fernández,J. Ralph, P. Horridge, S. Maskell, "A Gaussian filtering method for multi-target tracking with nonlinear/non-Gaussian measurements" IEEE Transactions on Aerospace and Electronic Systems, 2021, 57, 3539-3548.
+[20] A. F García-Fernández,J. Ralph, P. Horridge, S. Maskell, "A Gaussian filtering method for multi-target tracking with nonlinear/non-Gaussian measurements" IEEE Transactions on Aerospace and Electronic Systems, vol. 57, no. 5, pp. 3539-3548, Oct. 2021.
 
 [21] Á. F. García-Fernández, J. Ralph, P. Horridge, S. Maskell, "Gaussian trajectory PMBM filter with nonlinear measurements based on posterior linearisation" in Proceedings of the 25th International Conference on Information Fusion, 2022.
 
 [22] Á. F. García-Fernández, F. Tronarp and S. Särkkä, "Gaussian Target Tracking With Direction-of-Arrival von Mises–Fisher Measurements," in IEEE Transactions on Signal Processing, vol. 67, no. 11, pp. 2960-2972, June, 2019.
 
-[23] Á. F. García-Fernández, Y. Xia, L. Svensson, "Poisson multi-Bernoulli mixture filter with general target-generated measurements and arbitrary clutter", IEEE Transactions on Signal Processing, vol. 71, 2023.
+[23] Á. F. García-Fernández, Y. Xia, L. Svensson, "Poisson multi-Bernoulli mixture filter with general target-generated measurements and arbitrary clutter", IEEE Transactions on Signal Processing, vol. 71, pp. 1895-1906, 2023.
+
+[24] Á. F. García-Fernández, S. Sarkka, "Gaussian multi-target filtering with target dynamics driven by a stochastic differential equation", in IEEE Transactions on Signal Processing, 2025.
