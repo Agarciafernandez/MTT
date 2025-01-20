@@ -112,4 +112,4 @@ REFERENCES
 
 [23] Á. F. García-Fernández, Y. Xia, L. Svensson, "Poisson multi-Bernoulli mixture filter with general target-generated measurements and arbitrary clutter", IEEE Transactions on Signal Processing, vol. 71, pp. 1895-1906, 2023.
 
-[24] Á. F. García-Fernández, S. Sarkka, "Gaussian multi-target filtering with target dynamics driven by a stochastic differential equation", in IEEE Transactions on Signal Processing, 2025.
+[24] Á. F. García-Fernández, S. Särkkä, "Gaussian multi-target filtering with target dynamics driven by a stochastic differential equation", in IEEE Transactions on Signal Processing, 2025.
