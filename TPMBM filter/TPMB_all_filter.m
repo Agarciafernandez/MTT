@@ -22,8 +22,11 @@
 %the probability of having a certain length in the last time steps. In the hypotheses
 %that correspond to detection this variable is =1, as the trajectory is
 %alive with probability one (in this Bernoulli component)
-%It also has another cell mean_past{1}{1} (stores mean at k-1 for hypothesis 1) , mean_past{1}{2} (stores mean at k-1 for hypothesis 2).... that stores the
+
+%The version for all trajectories also has another cell mean_past that stores the means considering the
+%hypotheses that the trajectory died at a previous time step. For example, mean_past{1}{1} (stores mean at k-1 for hypothesis 1,) , mean_past{1}{2} (stores mean at k-1 for hypothesis 2).... that stores the
 %previous means
+
 %For the PPP, we only keep track of the alive trajectories
 
 
@@ -163,11 +166,11 @@ for i=1:Nmc
             %We only calculate the errors at the last time step
             if(k==Nsteps)
                 [squared_LP_metric, LP_metric_loc, LP_metric_miss, LP_metric_fal, LP_metric_switch]=ComputeLP_metric_all_error_final(X_estimate,t_b_estimate, length_estimate,X_truth,t_birth,t_death,c_gospa,gamma_track_metric,k,Nx);
-                squared_LP_metric_t_tot=squared_LP_metric_t_tot+[zeros(Nsteps-1,1);squared_LP_metric];
-                squared_LP_metric_loc_t_tot=squared_LP_metric_loc_t_tot+LP_metric_loc;
-                squared_LP_metric_fal_t_tot=squared_LP_metric_fal_t_tot+LP_metric_fal;
-                squared_LP_metric_mis_t_tot=squared_LP_metric_mis_t_tot+LP_metric_miss;
-                squared_LP_metric_switch_t_tot=squared_LP_metric_switch_t_tot+[LP_metric_switch;0];
+                squared_LP_metric_t_tot=squared_LP_metric_t_tot+[zeros(1,Nsteps-1),squared_LP_metric];
+                squared_LP_metric_loc_t_tot=squared_LP_metric_loc_t_tot+LP_metric_loc';
+                squared_LP_metric_fal_t_tot=squared_LP_metric_fal_t_tot+LP_metric_fal';
+                squared_LP_metric_mis_t_tot=squared_LP_metric_mis_t_tot+LP_metric_miss';
+                squared_LP_metric_switch_t_tot=squared_LP_metric_switch_t_tot+[LP_metric_switch',0];
                 
             end
             

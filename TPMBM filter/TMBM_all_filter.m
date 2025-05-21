@@ -155,11 +155,11 @@ for i=1:Nmc
             %We only calculate the errors at the last time step
             if(k==Nsteps)
                 [squared_LP_metric, LP_metric_loc, LP_metric_miss, LP_metric_fal, LP_metric_switch]=ComputeLP_metric_all_error_final(X_estimate,t_b_estimate, length_estimate,X_truth,t_birth,t_death,c_gospa,gamma_track_metric,k,Nx);
-                squared_LP_metric_t_tot=squared_LP_metric_t_tot+[zeros(Nsteps-1,1);squared_LP_metric];
-                squared_LP_metric_loc_t_tot=squared_LP_metric_loc_t_tot+LP_metric_loc;
-                squared_LP_metric_fal_t_tot=squared_LP_metric_fal_t_tot+LP_metric_fal;
-                squared_LP_metric_mis_t_tot=squared_LP_metric_mis_t_tot+LP_metric_miss;
-                squared_LP_metric_switch_t_tot=squared_LP_metric_switch_t_tot+[LP_metric_switch;0];
+                squared_LP_metric_t_tot=squared_LP_metric_t_tot+[zeros(1,Nsteps-1),squared_LP_metric];
+                squared_LP_metric_loc_t_tot=squared_LP_metric_loc_t_tot+LP_metric_loc';
+                squared_LP_metric_fal_t_tot=squared_LP_metric_fal_t_tot+LP_metric_fal';
+                squared_LP_metric_mis_t_tot=squared_LP_metric_mis_t_tot+LP_metric_miss';
+                squared_LP_metric_switch_t_tot=squared_LP_metric_switch_t_tot+[LP_metric_switch',0];
                 
             end
             
