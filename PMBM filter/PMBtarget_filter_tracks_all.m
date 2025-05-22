@@ -1,5 +1,9 @@
-%Demo with the implementation of the Poisson multi-Bernoulli mixture (PMBM)
+%Demo with the Gaussian implementation of the Poisson multi-Bernoulli (PMB)
 %filter described in
+%J. L. Williams, "Marginal multi-bernoulli filters: RFS derivation of MHT, JIPDA, and association-based member," in IEEE Transactions on Aerospace and Electronic Systems, vol. 51, no. 3, pp. 1664-1687, July 2015.
+
+%This file corresponds with the PMBM filter plus a projection step. 
+%The PMBM update is done as in 
 %Á. F. García-Fernández, J. L. Williams, K. Granström and L. Svensson, "Poisson Multi-Bernoulli Mixture Filter: Direct Derivation and Implementation," in IEEE Transactions on Aerospace and Electronic Systems, vol. 54, no. 4, pp. 1883-1901, Aug. 2018.
 
 %This version estimates the set of all trajectories sequentially by linking target state estimates of the same Bernoulli, which
@@ -16,15 +20,10 @@
 clear
 addpath('..\GOSPA code')
 addpath('..\Assignment')
-addpath('..\Trajectory metric')
-addpath('..\Trajectory errors')
-
 
 rand('seed',9)
 randn('seed',9)
 ScenarioWilliams15;
-
-plot_figures=0;
 
 Nx=4; %Single target state dimension
 %Filter
@@ -36,12 +35,9 @@ existence_threshold=0.00001; %Existence threshold: Bernoulli components with exi
 
 type_estimator=1; %Choose Estimator 1, 2 or 3 as defined in the paper
 existence_estimation_threshold1=0.4; %Only for esimator 1
-
 if(type_estimator>1)
     error('sequential track formation only implemented for estimator 1')
 end
-
-
 
 
 %GOSPA errors for the estimator
@@ -65,7 +61,6 @@ squared_LP_metric_switch_t_tot=zeros(1,Nsteps); %Track switching error
 %"Trajectory Poisson multi-Bernoulli filters," IEEE Transactions on Signal Processing, 2020.
 %2) (error online=0) We calculate the final trajectory metric error at the last time step of the simulation
 error_online=1;
-
 
 
 %Explanation of the structures filter_pred and filter_upd
@@ -96,51 +91,56 @@ error_online=1;
 rand('seed',9)
 randn('seed',9)
 
+Nmc=5
 
 %We go through all Monte Carlo runs
 
 for i=1:Nmc
     tic
-
+    
     filter_pred.weightPois=lambda0;
     filter_pred.meanPois=means_b;
     filter_pred.covPois=covs_b;
-
+    
     filter_pred.tracks=cell(0,1);
     filter_pred.globHyp=[];
     filter_pred.globHypWeight=[];
-    N_hypotheses_t=zeros(1,Nmc);
-
-
-    %Initial trajectory estimates
-    X_estimate=cell(0,1);
-    t_b_estimate=[];
-    length_estimate=[];
-    tag_estimate=zeros(2,0); %Includes t_ini and index of first measurement
-
+    N_hypotheses_t=zeros(1,Nsteps);
+    
+    
     %Simulate measurements
     for k=1:Nsteps
         z=CreateMeasurement(X_truth(:,k),t_birth,t_death,p_d,l_clutter,Area,k,H,chol_R,Nx);
         z_t{k}=z;
     end
 
-
-
+     %Initial trajectory estimates
+    X_estimate=cell(0,1);
+    t_b_estimate=[];
+    length_estimate=[];
+    tag_estimate=zeros(2,0); %Includes t_ini and index of first measurement
+    
     %Perform filtering
-
+    
     for k=1:Nsteps
-
+        
         %Update
         z=z_t{k};
-
+        
+        
 
         filter_upd=PoissonMBMtarget_update(filter_pred,z,H,R,p_d,k,gating_threshold,intensity_clutter,Nhyp_max);
-
+        
+        %We project the PMBM updated density into a PMB density
+        filter_upd_pmb=PMB_projection(filter_upd);      
+        filter_upd=filter_upd_pmb;
+        
         %Set of targets and set of trajectories estimation
         [X_estimate,t_b_estimate,length_estimate,tag_estimate]=PoissonMBMtarget_estimate1_tracks(filter_upd,existence_estimation_threshold1,X_estimate,t_b_estimate,length_estimate,tag_estimate,k,Nx);
-
-
-        if(error_online==1)
+        
+ 
+        
+          if(error_online==1)
             %Computation of the squared LP metric error
             [squared_LP_metric, LP_metric_loc, LP_metric_miss, LP_metric_fal, LP_metric_switch]=ComputeLP_metric_all_error(X_estimate,t_b_estimate, length_estimate,X_truth,t_birth,t_death,c_gospa,gamma_track_metric,k,Nx);
             squared_LP_metric_t_tot(k)=squared_LP_metric_t_tot(k)+squared_LP_metric;
@@ -173,32 +173,27 @@ for i=1:Nmc
             end
 
         end
-
-
+        
         %Draw filter output
         %DrawTrajectoryFilterEstimates(X_truth,t_birth,t_death,X_estimate,[100,200],[100,200],z,k)
-
-
+        
+        
+        
         %Hypothesis reduction, pruning,normalisation
         filter_upd_pruned=PoissonMBMtarget_pruning(filter_upd, T_pruning,T_pruningPois,Nhyp_max,existence_threshold);
         filter_upd=filter_upd_pruned;
-
+        
         N_hypotheses_t(k)=length(filter_upd.globHypWeight);
-
+        
         %Prediction
         filter_pred=PoissonMBMtarget_pred(filter_upd,F,Q,p_s,weights_b,means_b,covs_b);
-
+        
     end
-
+    
     t=toc;
     display(['Completed iteration number ', num2str(i),' time ', num2str(t), ' sec'])
-
+    
 end
-
-%save(['PMBM_tracks_all_pd',int2str(100*p_d),'_R',int2str(R(1,1)),'_clut',int2str(l_clutter),'_Nhyp_max',int2str(Nhyp_max)])
-
-
-
 
 if(plot_figures)
     figure(1)

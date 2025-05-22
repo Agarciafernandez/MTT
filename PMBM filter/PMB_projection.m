@@ -1,7 +1,15 @@
 function filter_upd_pmb=PMB_projection(filter_upd)
 
-%This function obtains the best fitting trajectory PMB to the updated
-%trajectory PMBM based on KLD minimisation
+%This function obtains the best fitting PMB to the updated
+% PMBM based on KLD minimisation with auxiliary variable [1].
+% This projection gives rise to the track-oriented PMB filter in [2].
+
+%[1] Á. F. García-Fernández, L. Svensson, J. L. Williams, Y. Xia and K. Granström, 
+% "Trajectory Poisson Multi-Bernoulli Filters," in IEEE Transactions on Signal Processing, vol. 68, pp. 4933-4945, 2020
+
+%[2] J. L. Williams, "Marginal multi-bernoulli filters: RFS derivation of MHT, JIPDA, and association-based member," 
+% in IEEE Transactions on Aerospace and Electronic Systems, vol. 51, no. 3, pp. 1664-1687, July 2015,
+
 
 %Weights of global hypotheses
 weights=filter_upd.globHypWeight;
@@ -65,7 +73,11 @@ if(length(weights)>1)
                 %The rest of the parameters do not change
                 filter_upd_pmb.tracks{index_output}.t_ini=filter_upd.tracks{i}.t_ini;
                 
-                filter_upd_pmb.tracks{index_output}.aHis{1}=0; %The data association variable is meaningless in the TPMB filter but is required so that the code works
+                %We keep the data association variable at the time step
+                %when the i-th Bernoulli component was created. This auxiliary variable
+                %can be used for sequential track formation, see for
+                %instance PMBtarget_filter_tracks_all.m
+                filter_upd_pmb.tracks{index_output}.aHis{1}= filter_upd.tracks{i}.aHis{1}(1); 
                 
             else
                 
