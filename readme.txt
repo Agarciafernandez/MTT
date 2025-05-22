@@ -66,50 +66,50 @@ https://www.edx.org/course/multi-object-tracking-for-automotive-systems
 
 REFERENCES
 
-[1] J. L. Williams, "Marginal multi-bernoulli filters: RFS derivation of MHT, JIPDA, and association-based member," in IEEE Transactions on Aerospace and Electronic Systems, vol. 51, no. 3, pp. 1664-1687, July 2015.
+[1] J. L. Williams, "Marginal multi-Bernoulli filters: RFS derivation of MHT, JIPDA, and association-based member," in IEEE Transactions on Aerospace and Electronic Systems, vol. 51, no. 3, pp. 1664-1687, July 2015.
 
-[2] A. F. Garc a-Fern ndez, J. L. Williams, K. Granstr m, and L. Svensson,  Poisson multi-Bernoulli mixture filter: direct derivation and implementation,  IEEE Transactions on Aerospace and Electronic Systems, vol. 54, no. 4, pp. 1883 1901, Aug. 2018.
+[2] A. F. García-Fernández, J. L. Williams, K. Granström, and L. Svensson,  Poisson multi-Bernoulli mixture filter: direct derivation and implementation,  IEEE Transactions on Aerospace and Electronic Systems, vol. 54, no. 4, pp. 1883 1901, Aug. 2018.
 
-[3] A. F. Garc a-Fern ndez, Y. Xia , K. Granstr m, L. Svensson, J. L. Williams, "Gaussian implementation of the multi-Bernoulli mixture filter", in Proceedings of the 22nd International conference on Information Fusion, 2019.
+[3] A. F. García-Fernández, Y. Xia , K. Granström, L. Svensson, J. L. Williams, "Gaussian implementation of the multi-Bernoulli mixture filter", in Proceedings of the 22nd International conference on Information Fusion, 2019.
 
-[4]  . F. Garc a-Fern ndez, L. Svensson, J. L. Williams, Y. Xia and K. Granstr m, "Trajectory Poisson Multi-Bernoulli Filters," in IEEE Transactions on Signal Processing, vol. 68, pp. 4933-4945, 2020.
+[4] A. F. García-Fernández, L. Svensson, J. L. Williams, Y. Xia and K. Granström, "Trajectory Poisson Multi-Bernoulli Filters," in IEEE Transactions on Signal Processing, vol. 68, pp. 4933-4945, 2020.
 
-[5]  . F. Garc a-Fern ndez, L. Svensson and M. R. Morelande, "Multiple Target Tracking Based on Sets of Trajectories," in IEEE Transactions on Aerospace and Electronic Systems, vol. 56, no. 3, pp. 1685-1707, June 2020.
+[5]  A. F. García-Fernández, L. Svensson and M. R. Morelande, "Multiple Target Tracking Based on Sets of Trajectories," in IEEE Transactions on Aerospace and Electronic Systems, vol. 56, no. 3, pp. 1685-1707, June 2020.
 
-[6] A. F. Garc a-Fern ndez, S. Maskell, "Continuous-discrete multiple target filtering: PMBM, PHD and CPHD filter implementations," IEEE Transactions on Signal Processing, vol. 68, pp. 1300-1314, 2020.
+[6] A. F. García-Fernández, S. Maskell, "Continuous-discrete multiple target filtering: PMBM, PHD and CPHD filter implementations," IEEE Transactions on Signal Processing, vol. 68, pp. 1300-1314, 2020.
 
-[7] A. F. Garc a-Fern ndez and L. Svensson,  Trajectory PHD and CPHD filters , IEEE Transactions on Signal Processing, vol. 67, no. 22, pp. 5702-5714, Nov. 2019.
+[7] A. F. García-Fernández and L. Svensson,  Trajectory PHD and CPHD filters , IEEE Transactions on Signal Processing, vol. 67, no. 22, pp. 5702-5714, Nov. 2019.
 
-[8] K. Granstr m, L. Svensson, Y. Xia, J. Williams and  . F. Garc a-Fern ndez, "Poisson Multi-Bernoulli Mixture Trackers: Continuity Through Random Finite Sets of Trajectories," 2018 21st International Conference on Information Fusion (FUSION), Cambridge, 2018.
+[8] K. Granström, L. Svensson, Y. Xia, J. Williams and A . F. García-Fernández, "Poisson Multi-Bernoulli Mixture Trackers: Continuity Through Random Finite Sets of Trajectories," 2018 21st International Conference on Information Fusion (FUSION), Cambridge, 2018.
 
-[9] K. Granstr m, L. Svensson, Y. Xia, J. Williams and  . F. Garc a-Fern ndez, "Poisson Multi-Bernoulli Mixtures for Sets of Trajectories," in IEEE Transactions on Aerospace and Electronic Systems, 2025.
+[9] K. Granström, L. Svensson, Y. Xia, J. Williams and A . F. García-Fernández, "Poisson Multi-Bernoulli Mixtures for Sets of Trajectories," in IEEE Transactions on Aerospace and Electronic Systems, 2025.
 
-[10] Y. Xia, K. Granstr m, L. Svensson, A. F. Garc a-Fern ndez, and J. L. Wlliams,  Multi-scan implementation of the trajectory Poisson multi-Bernoulli mixture filter,  Journal of Advances in Information Fusion. Special Issue on Multiple Hypothesis Tracking., vol. 14, no. 2, pp. 213 235, Dec. 2019.
+[10] Y. Xia, K. Granström, L. Svensson, A. F. García-Fernández, and J. L. Wlliams,  Multi-scan implementation of the trajectory Poisson multi-Bernoulli mixture filter,  Journal of Advances in Information Fusion. Special Issue on Multiple Hypothesis Tracking., vol. 14, no. 2, pp. 213 235, Dec. 2019.
 
-[11] A. F. Garc a-Fern ndez, L. Svensson, J. L. Williams, Y. Xia, K. Granstr m,   Trajectory multi-Bernoulli filters for multi-target tracking based on sets of trajectories  in 23rd International Conference on Information Fusion, 2020.
+[11] A. F. García-Fernández, L. Svensson, J. L. Williams, Y. Xia, K. Granström,   Trajectory multi-Bernoulli filters for multi-target tracking based on sets of trajectories  in 23rd International Conference on Information Fusion, 2020.
 
-[12] A. S. Rahmathullah, A. F. Garc a-Fern ndez, and L. Svensson,  Generalized optimal sub-pattern assignment metric,  in 20th International Conference on Information Fusion, 2017.
+[12] A. S. Rahmathullah, A. F. García-Fernández, and L. Svensson,  Generalized optimal sub-pattern assignment metric,  in 20th International Conference on Information Fusion, 2017.
 
-[13] A. F. Garc a-Fern ndez, and L. Svensson, "Spooky effect in optimal OSPA estimation and how GOSPA solves it," in 22nd International Conference on Information Fusion, 2019.
+[13] A. F. García-Fernández, and L. Svensson, "Spooky effect in optimal OSPA estimation and how GOSPA solves it," in 22nd International Conference on Information Fusion, 2019.
 
 [14] L. Svensson, Presentation on GOSPA: https://www.youtube.com/watch?v=M79GTTytvCM
 
-[15]  . F. Garc a-Fern ndez, A. S. Rahmathullah and L. Svensson, "A Metric on the Space of Finite Sets of Trajectories for Evaluation of Multi-Target Tracking Algorithms," in IEEE Transactions on Signal Processing, vol. 68, pp. 3917-3928, 2020.
+[15] A. F. García-Fernández, A. S. Rahmathullah and L. Svensson, "A Metric on the Space of Finite Sets of Trajectories for Evaluation of Multi-Target Tracking Algorithms," in IEEE Transactions on Signal Processing, vol. 68, pp. 3917-3928, 2020.
 
-[16]  . F. Garc a-Fern ndez and W. Yi, "Continuous-Discrete Multiple Target Tracking With Out-of-Sequence Measurements," in IEEE Transactions on Signal Processing, vol. 69, pp. 4699-4709, 2021
+[16] A. F. García-Fernández and W. Yi, "Continuous-Discrete Multiple Target Tracking With Out-of-Sequence Measurements," in IEEE Transactions on Signal Processing, vol. 69, pp. 4699-4709, 2021
 
-[17]  . F. Garc a-Fern ndez and L. Svensson, "Tracking Multiple Spawning Targets Using Poisson Multi-Bernoulli Mixtures on Sets of Tree Trajectories," in IEEE Transactions on Signal Processing, vol. 70, pp. 1987-1999, 2022.
+[17] A. F. García-Fernández and L. Svensson, "Tracking Multiple Spawning Targets Using Poisson Multi-Bernoulli Mixtures on Sets of Tree Trajectories," in IEEE Transactions on Signal Processing, vol. 70, pp. 1987-1999, 2022.
 
-[18]  . F. Garc a-Fern ndez, L. Svensson, M. R. Morelande and S. S rkk , "Posterior Linearization Filter: Principles and Implementation Using Sigma Points," in IEEE Transactions on Signal Processing, vol. 63, no. 20, pp. 5561-5573, Oct.15, 2015.
+[18] A. F. García-Fernández, L. Svensson, M. R. Morelande and S. Särkkä, "Posterior Linearization Filter: Principles and Implementation Using Sigma Points," in IEEE Transactions on Signal Processing, vol. 63, no. 20, pp. 5561-5573, Oct.15, 2015.
 
-[19] F. Tronarp,  . F. Garc a-Fern ndez and S. S rkk , "Iterative Filtering and Smoothing in Nonlinear and Non-Gaussian Systems Using Conditional Moments,"  in IEEE Signal Processing Letters, vol. 25, no. 3, pp. 408-412, March 2018.
+[19] F. Tronarp,  A. F. García-Fernández and S. Särkkä, "Iterative Filtering and Smoothing in Nonlinear and Non-Gaussian Systems Using Conditional Moments,"  in IEEE Signal Processing Letters, vol. 25, no. 3, pp. 408-412, March 2018.
 
-[20] A. F Garc a-Fern ndez,J. Ralph, P. Horridge, S. Maskell, "A Gaussian filtering method for multi-target tracking with nonlinear/non-Gaussian measurements" IEEE Transactions on Aerospace and Electronic Systems, vol. 57, no. 5, pp. 3539-3548, Oct. 2021.
+[20] A. F. García-Fernández,J. Ralph, P. Horridge, S. Maskell, "A Gaussian filtering method for multi-target tracking with nonlinear/non-Gaussian measurements" IEEE Transactions on Aerospace and Electronic Systems, vol. 57, no. 5, pp. 3539-3548, Oct. 2021.
 
-[21]  . F. Garc a-Fern ndez, J. Ralph, P. Horridge, S. Maskell, "Gaussian trajectory PMBM filter with nonlinear measurements based on posterior linearisation" in Proceedings of the 25th International Conference on Information Fusion, 2022.
+[21] A. F. García-Fernández, J. Ralph, P. Horridge, S. Maskell, "Gaussian trajectory PMBM filter with nonlinear measurements based on posterior linearisation" in Proceedings of the 25th International Conference on Information Fusion, 2022.
 
-[22]  . F. Garc a-Fern ndez, F. Tronarp and S. S rkk , "Gaussian Target Tracking With Direction-of-Arrival von Mises Fisher Measurements," in IEEE Transactions on Signal Processing, vol. 67, no. 11, pp. 2960-2972, June, 2019.
+[22]  A. F. García-Fernández, F. Tronarp and S. Särkkä, "Gaussian Target Tracking With Direction-of-Arrival von Mises Fisher Measurements," in IEEE Transactions on Signal Processing, vol. 67, no. 11, pp. 2960-2972, June, 2019.
 
-[23]  . F. Garc a-Fern ndez, Y. Xia, L. Svensson, "Poisson multi-Bernoulli mixture filter with general target-generated measurements and arbitrary clutter", IEEE Transactions on Signal Processing, vol. 71, pp. 1895-1906, 2023.
+[23] A. F. García-Fernández, Y. Xia, L. Svensson, "Poisson multi-Bernoulli mixture filter with general target-generated measurements and arbitrary clutter", IEEE Transactions on Signal Processing, vol. 71, pp. 1895-1906, 2023.
 
-[24]  . F. Garc a-Fern ndez, S. S rkk , "Gaussian multi-target filtering with target dynamics driven by a stochastic differential equation", in IEEE Transactions on Signal Processing, 2025.
+[24] A. F. García-Fernández, S. Särkkä, "Gaussian multi-target filtering with target dynamics driven by a stochastic differential equation", in IEEE Transactions on Signal Processing, 2025.
