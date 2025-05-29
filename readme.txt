@@ -55,8 +55,6 @@ https://github.com/yuhsuansia/Extented-target-PMBM-filter-independent-clutter-so
 - Evaluation of multi-target trackers (filters that estimate a set of trajectories) is based on the linear programming implementation of the trajectory GOSPA metric (GOSPA metric for sets of trajectories) and its decomposition into localisation errors for properly detected targets, and costs for false, missed targets, and track switches [15].
 
 
-- Open access versions of the above papers can be found in https://www.liverpool.ac.uk/electrical-engineering-and-electronics/staff/angel-garcia-fernandez/publications/
-
 - A relevant online course on multiple target tracking by Chalmers University is provided in Youtube and edX:
 
 https://www.youtube.com/channel/UCa2-fpj6AV8T6JK1uTRuFpw
@@ -66,7 +64,7 @@ https://www.edx.org/course/multi-object-tracking-for-automotive-systems
 
 REFERENCES
 
-[1] J. L. Williams, "Marginal multi-Bernoulli filters: RFS derivation of MHT, JIPDA, and association-based member," in IEEE Transactions on Aerospace and Electronic Systems, vol. 51, no. 3, pp. 1664-1687, July 2015.
+[1] J. L. Williams, "Marginal multi-Bernoulli filters: RFS derivation of MHT, JIPDA, and association-based MeMBer," in IEEE Transactions on Aerospace and Electronic Systems, vol. 51, no. 3, pp. 1664-1687, July 2015.
 
 [2] A. F. García-Fernández, J. L. Williams, K. Granström, and L. Svensson,  Poisson multi-Bernoulli mixture filter: direct derivation and implementation,  IEEE Transactions on Aerospace and Electronic Systems, vol. 54, no. 4, pp. 1883 1901, Aug. 2018.
 
@@ -112,4 +110,4 @@ REFERENCES
 
 [23] A. F. García-Fernández, Y. Xia, L. Svensson, "Poisson multi-Bernoulli mixture filter with general target-generated measurements and arbitrary clutter", IEEE Transactions on Signal Processing, vol. 71, pp. 1895-1906, 2023.
 
-[24] A. F. García-Fernández, S. Särkkä, "Gaussian multi-target filtering with target dynamics driven by a stochastic differential equation", in IEEE Transactions on Signal Processing, 2025.
+[24] A. F. García-Fernández, S. Särkkä, "Gaussian multi-target filtering with target dynamics driven by a stochastic differential equation", in IEEE Transactions on Signal Processing, vol. 73, pp. 664-675, 2025.
