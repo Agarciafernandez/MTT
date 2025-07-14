@@ -10,7 +10,7 @@
 %Evaluation using the metric for sets of trajectories, which allows to decompose the
 %error into localisation errors, cost for missed targets, false targets,
 %and track switches
-% A. S. Rahmathullah, A. F. García-Fernández, and L. Svensson, “A metric on the space of ?nite sets of trajectories for evaluation of multi-target tracking algorithms,” 2016.
+% Á. F. García-Fernández, A. S. Rahmathullah and L. Svensson, "A Metric on the Space of Finite Sets of Trajectories for Evaluation of Multi-Target Tracking Algorithms," in IEEE Transactions on Signal Processing, vol. 68, pp. 3917-3928, 2020, 
 %[Online]. Available: http://arxiv.org/abs/1605.01177
 
 %Also, evaluation using the GOSPA metric (alpha=2), which allows to decompose the
@@ -176,7 +176,7 @@ end
 
 
 
-display('LP trajectory metric errors')
+display('T-GOSPA metric errors')
 %RMS trajectory metric costs across all time steps (for alive trajectories)
 rms_LP_metric_tot=sqrt(sum(squared_LP_metric_t_tot)/(Nmc*Nsteps))
 rms_LP_metric_loc_tot=sqrt(sum(squared_LP_metric_loc_t_tot)/(Nmc*Nsteps))
@@ -221,36 +221,36 @@ if(plot_figures==1)
     grid on
     
 elseif(plot_figures==2)
-    %Plot of LP trajectory metric error and its decomposition
+    %Plot of T-GOSPA metric error and its decomposition
     figure(1)
     plot(1:Nsteps,sqrt(squared_LP_metric_t_tot/Nmc),'Linewidth',1.3)
     xlabel('Time step')
-    ylabel('RMS TM error')
+    ylabel('RMS T-GOSPA error')
     grid on
     
     figure(2)
     plot(1:Nsteps,sqrt(squared_LP_metric_loc_t_tot/Nmc),'Linewidth',1.3)
     xlabel('Time step')
-    ylabel('RMS TM localisation error')
+    ylabel('RMS T-GOSPA localisation error')
     grid on
     
     
     figure(3)
     plot(1:Nsteps,sqrt(squared_LP_metric_mis_t_tot/Nmc),'Linewidth',1.3)
     xlabel('Time step')
-    ylabel('RMS TM error (missed targets)')
+    ylabel('RMS T-GOSPA error (missed targets)')
     grid on
     
     figure(4)
     plot(1:Nsteps,sqrt(squared_LP_metric_fal_t_tot/Nmc),'Linewidth',1.3)
     xlabel('Time step')
-    ylabel('RMS TM error (false targets)')
+    ylabel('RMS T-GOSPA error (false targets)')
     grid on
     
     figure(5)
     plot(1:Nsteps,sqrt(squared_LP_metric_switch_t_tot/Nmc),'Linewidth',1.3)
     xlabel('Time step')
-    ylabel('RMS TM error (switching cost)')
+    ylabel('RMS T-GOSPA error (switching cost)')
     grid on
     
 end
