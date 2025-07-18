@@ -1,19 +1,28 @@
-function  [weights_o,means_o,covs_o,t_ini_o,length_o,Ncom_o,logical_activas_o,means_k_old_o]=GMTPHD_filter_pruning_absorption(weights_u,means_u,covs_u,t_ini_u,length_u,logical_activas_u,T_pruning,Ncom_max,T_absorption,means_k_old,Lscan)
+function  [weights_o,means_o,covs_o,t_ini_o,length_o,Ncom_o,logical_actives_o,means_k_old_o]=GMTPHD_filter_pruning_absorption(weights_u,means_u,covs_u,t_ini_u,length_u,logical_actives_u,T_pruning,Ncom_max,T_absorption,means_k_old,Lscan,Ncom_b)
 
-%Pruning and absorption algorithm for TPHD filter
+%Pruning and absorption algorithm for TPHD and TCPHD filters
 %Author: Angel F. Garcia-Fernandez
 
-weights_u(~logical_activas_u)=0;
+weights_u(~logical_actives_u)=0;
 logical_candidates=weights_u>T_pruning;
 
-weights_o=zeros(size(weights_u));
-means_o=zeros(size(means_u));
-covs_o=zeros(size(covs_u));
-means_k_old_o=zeros(size(means_k_old));
-index_o=1;
-t_ini_o=zeros(size(t_ini_u));
-length_o=zeros(size(length_u));
 
+Nx=size(means_u,1)/Lscan;
+Nsteps=size(means_k_old,1)/Nx;
+
+weights_o=zeros(1,Ncom_max); %PHD weights at time step k
+means_o=zeros(Lscan*Nx,Ncom_max); %PHD mean at time step k (within the L-scan window) for each PHD component
+covs_o=zeros(Lscan*Nx,Lscan*Nx,Ncom_max); %Covariance matrix at time step k within the L-scan window for each PHD component
+means_k_old_o=zeros(Nsteps*Nx,Ncom_max);
+t_ini_o=zeros(1,Ncom_max); %Initial time step of each GM component
+length_o=zeros(1,Ncom_max); %Trajectory length of each GM component
+logical_actives_o=false(1,Ncom_max);
+
+Ncom_max=Ncom_max-Ncom_b+1;
+
+
+
+index_o=1;
 
 while(sum(logical_candidates)>0)
     [~,index_max]=max(weights_u(logical_candidates));
@@ -70,7 +79,6 @@ while(sum(logical_candidates)>0)
     
 end
 Ncom_o=index_o-1;
-logical_activas_o=false(size(logical_activas_u));
-logical_activas_o(1:Ncom_o)=1;
+logical_actives_o(1:Ncom_o)=1;
 
 

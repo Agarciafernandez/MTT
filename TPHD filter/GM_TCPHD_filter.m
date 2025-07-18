@@ -84,7 +84,7 @@ for i=1:Nmc
     logical_actives_k=false(1,Ncom_max); %Boolean that indicates if the i-th PHD component is empty or not
     t_ini_k=zeros(1,Ncom_max); %Initial time step of each PHD component
     length_k=zeros(1,Ncom_max); %Trajectory length of each PHD component 
-    means_k_old=zeros(Nsteps*Nx,Ncom_max); %Contains the old means (before the window) I arrange them already according to its time step.
+    means_k_old=zeros(Nsteps*Nx,Ncom_max); %Contains the old means (before the window) for each PHD component. They are arranged according to its time step.
       
     
     for k=1:Nsteps
@@ -118,7 +118,7 @@ for i=1:Nmc
         
         %Pruning and absorption
         [weights_o, means_o,covs_o,t_ini_o,length_o, Ncom_u,logical_actives_u,means_k_old_u]=GMTPHD_filter_pruning_absorption(weights_u,means_u,covs_u,t_ini_u,length_u,logical_actives_u,T_pruning,Ncom_max,...
-            T_absorption,means_k_old_u,Lscan);
+            T_absorption,means_k_old_u,Lscan,Ncom_b);
         weights_u=weights_o;
         means_u=means_o;
         covs_u=covs_o;
