@@ -2,7 +2,7 @@ This repository contains the Matlab implementations of Bayesian multi-target fil
 
 # Performance evaluation
 
-Performance evaluation of the multi-target filters, which estimate the set of targets at each time step, is based on the generalised optimal subpattern-assignment (GOSPA) metric and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [[12]](https://ieeexplore.ieee.org/document/8009645)[[13]]((https://ieeexplore.ieee.org/abstract/document/9011259))[[14]](https://www.youtube.com/watch?v=M79GTTytvCM). The GOSPA metric code is provided in folder "GOSPA code".
+Performance evaluation of the multi-target filters, which estimate the set of targets at each time step, is based on the generalised optimal subpattern-assignment (GOSPA) metric and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [[12]](https://ieeexplore.ieee.org/document/8009645)[[13]](https://ieeexplore.ieee.org/abstract/document/9011259)[[14]](https://www.youtube.com/watch?v=M79GTTytvCM). The GOSPA metric code is provided in folder "GOSPA code".
 
 Performance evaluation of multi-target trackers (filters that estimate a set of trajectories) is based on the linear programming implementation of the trajectory GOSPA (T-GOSPA) metric (GOSPA metric for sets of trajectories) and its decomposition into localisation errors for properly detected targets, and costs for false, missed targets, and track switches [[15]](https://ieeexplore.ieee.org/document/9127194). The T-GOSPA metric code is provided in folder "Trajectory metric". This folder also contains the time-weighted T-GOSPA metric proposed in [[26]](https://ieeexplore.ieee.org/document/9626977).
 
@@ -46,7 +46,7 @@ To run the continuous-discrete CPHD filter (non-linear SDE), execute GMCPHD_cd_f
 
 # Folder "TPHD"
 
-This folder contains the implementations of the trajectory probability hypothesis density (TPHD) filter and the trajectory cardinality PHD (TCPHD) filter for sets of trajectories in [[7]]((https://ieeexplore.ieee.org/document/8846723)).
+This folder contains the implementations of the trajectory probability hypothesis density (TPHD) filter and the trajectory cardinality PHD (TCPHD) filter for sets of trajectories in [[7]](https://ieeexplore.ieee.org/document/8846723).
 
 To run the filters, execute GM_TPHD_filter.m and GM_TCPHD_filter.m
 
@@ -71,17 +71,17 @@ To run the filters, execute TrPMBM_all_filter.m and TrMBM_all_filter.m. A PMBM f
 # Folder "Non-linear MTT"
 
 This folder contains the implementation of PMBM, PMB, TPMBM and TPMB filters for non-linear, non-Gaussian measurement models and non-constant probability of detection.
-In particular, the filters perform the updates using the iterated posterior linearisation filter (IPLF) for conditional moments [[18]]((https://ieeexplore.ieee.org/document/7153566))[[19]]((https://ieeexplore.ieee.org/document/8260875)) and with the improvement of normalising constant approximation [[20]]((https://ieeexplore.ieee.org/document/9409712)). The TPMBM and TPMB implementations are explained in [[21]]((https://ieeexplore.ieee.org/document/9841396)). The implementations make use of a range-bearings sensors with von-Mises Fisher-distributed measurements. The IPLF for this type of measurement is explained in [[22]]((https://ieeexplore.ieee.org/document/8691412)).
+In particular, the filters perform the updates using the iterated posterior linearisation filter (IPLF) for conditional moments [[18]](https://ieeexplore.ieee.org/document/7153566)[[19]](https://ieeexplore.ieee.org/document/8260875) and with the improvement of normalising constant approximation [[20]](https://ieeexplore.ieee.org/document/9409712). The TPMBM and TPMB implementations are explained in [[21]](https://ieeexplore.ieee.org/document/9841396). The implementations make use of a range-bearings sensors with von-Mises Fisher-distributed measurements. The IPLF for this type of measurement is explained in [[22]](https://ieeexplore.ieee.org/document/8691412).
 
 To run the filters, execute TPMBM_all_filter_range_bearing.m, TPMB_all_filter_range_bearing.m, TPMBM_alive_filter_range_bearing.m, TPMB_alive_filter_range_bearing.m, PMBM_filter_range_bearing.m , PMB_filter_range_bearing.m
 
 # Folder "PMBM arbitrary clutter"
 
-This folder contains the point-target PMBM and PMB implementations with negative binomial clutter in [[23]]((https://ieeexplore.ieee.org/document/10130623)).
+This folder contains the point-target PMBM and PMB implementations with negative binomial clutter in [[23]](https://ieeexplore.ieee.org/document/10130623).
 
 To run the filters, execute "PMBMtarget_filter_nb_clutter" and "PMBtarget_filter_nb_clutter"
 
-The code for the extended target example in [[23]]((https://ieeexplore.ieee.org/document/10130623)) can be found at
+The code for the extended target example in [[23]](https://ieeexplore.ieee.org/document/10130623) can be found at
 
 https://github.com/yuhsuansia/Extented-target-PMBM-filter-independent-clutter-sources
 
