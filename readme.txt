@@ -48,6 +48,10 @@ The code for the extended target example in [23] can be found at
 
 https://github.com/yuhsuansia/Extented-target-PMBM-filter-independent-clutter-sources
 
+- Folder "Distributed MTT" contains the implementation of the distributed PMBM/PMB filters based on the generalised covariance intersection fusi (GCI) rule for PMB densities in [25].
+ 
+To run the filters, execute DPMB_GCI_filtering.m.
+
 
 - Evaluation of the multi-target filters is based on the generalised optimal subpattern-assignment (GOSPA) and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [12][13][14].
 
@@ -72,7 +76,7 @@ REFERENCES
 
 [4] A. F. García-Fernández, L. Svensson, J. L. Williams, Y. Xia and K. Granström, "Trajectory Poisson Multi-Bernoulli Filters," in IEEE Transactions on Signal Processing, vol. 68, pp. 4933-4945, 2020.
 
-[5]  A. F. García-Fernández, L. Svensson and M. R. Morelande, "Multiple Target Tracking Based on Sets of Trajectories," in IEEE Transactions on Aerospace and Electronic Systems, vol. 56, no. 3, pp. 1685-1707, June 2020.
+[5] A. F. García-Fernández, L. Svensson and M. R. Morelande, "Multiple Target Tracking Based on Sets of Trajectories," in IEEE Transactions on Aerospace and Electronic Systems, vol. 56, no. 3, pp. 1685-1707, June 2020.
 
 [6] A. F. García-Fernández, S. Maskell, "Continuous-discrete multiple target filtering: PMBM, PHD and CPHD filter implementations," IEEE Transactions on Signal Processing, vol. 68, pp. 1300-1314, 2020.
 
@@ -111,3 +115,5 @@ REFERENCES
 [23] A. F. García-Fernández, Y. Xia, L. Svensson, "Poisson multi-Bernoulli mixture filter with general target-generated measurements and arbitrary clutter", IEEE Transactions on Signal Processing, vol. 71, pp. 1895-1906, 2023.
 
 [24] A. F. García-Fernández, S. Särkkä, "Gaussian multi-target filtering with target dynamics driven by a stochastic differential equation", in IEEE Transactions on Signal Processing, vol. 73, pp. 664-675, 2025.
+
+[25] Á. F. García-Fernández and G. Battistelli, "Distributed Poisson Multi-Bernoulli Filtering via Generalized Covariance Intersection," in IEEE Transactions on Signal Processing, vol. 74, pp. 246-257, 2026, doi: 10.1109/TSP.2026.3651805.
