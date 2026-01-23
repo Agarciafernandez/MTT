@@ -30,7 +30,7 @@ To run the continuous-discrete PMBM filter (Wiener velocity), execute PMBMtarget
 To run the continuous-discrete PHD filter (Wiener velocity), execute GMPHD_cd_filter.m.
 To run the continuous-discrete CPHD filter (Wiener velocity), execute GMCPHD_cd_filter.m.
 
-This folder also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for general linear stochastic differential equations (SDEs) described in [[24]]((https://ieeexplore.ieee.org/document/10857380)):
+This folder also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for general linear stochastic differential equations (SDEs) described in [[24]](https://ieeexplore.ieee.org/document/10857380):
 
 To run the continuous-discrete PMBM filter (linear SDE), execute PMBMtarget_cd_filter_linear_SDE.m.
 To run the continuous-discrete PMB filter (linear SDE), execute PMBtarget_cd_filter_linear_SDE.m.
