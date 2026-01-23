@@ -88,7 +88,7 @@ https://github.com/yuhsuansia/Extented-target-PMBM-filter-independent-clutter-so
 # Folder "Distributed MTT"
 
 This folder contains the implementation of the distributed PMBM/PMB filters based on the generalised covariance intersection (GCI) fusion rule for PMB densities in [[25]](https://ieeexplore.ieee.org/document/11334185).
- 
+
 To run the filters, execute DPMB_GCI_filtering.m.
 
 
