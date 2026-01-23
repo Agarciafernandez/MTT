@@ -37,7 +37,7 @@ To run the continuous-discrete PMB filter (linear SDE), execute PMBtarget_cd_fil
 To run the continuous-discrete PHD filter (linear SDE), execute GMPHD_cd_filter_linear_SDE.m.
 To run the continuous-discrete CPHD filter (linear SDE), execute GMCPHD_cd_filter_linear_SDE.m.
 
-This folder also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for non-linear SDEs described in [[24]]((https://ieeexplore.ieee.org/document/10857380)):
+This folder also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for non-linear SDEs described in [[24]](https://ieeexplore.ieee.org/document/10857380):
 
 To run the continuous-discrete PMBM filter (non-linear SDE), execute PMBMtarget_cd_filter_nonlinear_SDE_Taylor.m.
 To run the continuous-discrete PMB filter (non-linear SDE), execute PMBtarget_cd_filter_nonlinear_SDE_Taylor.m.
@@ -97,6 +97,7 @@ To run the filters, execute DPMB_GCI_filtering.m.
 A relevant online course on Bayesian multiple target tracking by Chalmers University is available in Youtube and edX:
 
 https://www.youtube.com/channel/UCa2-fpj6AV8T6JK1uTRuFpw
+
 https://www.edx.org/course/multi-object-tracking-for-automotive-systems
 
 # References
