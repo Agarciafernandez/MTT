@@ -15,7 +15,7 @@ To run the PMBM filter, execute PMBMtarget_filter.m.
 To run the PMB filter, execute PMBtarget_filter.m.
 To run the MBM filter, execute MBMtarget_filter.m.
 
-Sequential track estimation with the above filters can be achieved by linking target states estimates from the same Bernoulli component, which is uniquely identified by a start time and measurement.  This information can be made explicit in the posterior via auxiliary variables [[4]](https://ieeexplore.ieee.org/document/9169859). Note that Bayesian track formation is obtained by estimating the set of trajectories directly from the posterior density on the set of trajectories, not by sequentially linking target state estimates [[5]](https://ieeexplore.ieee.org/document/8731733).
+Sequential track estimation with the above filters can be achieved by linking target states estimates from the same Bernoulli component, which is uniquely identified by a start time and measurement.  This information can be made explicit in the posterior via auxiliary variables [[4]](https://ieeexplore.ieee.org/document/9169859). Note that Bayesian track formation is obtained by estimating the set of trajectories directly from the posterior density on the set of trajectories, not by sequentially linking target state estimates [[5]](https://ieeexplore.ieee.org/document/8731733). For optimal Bayesian estimation of the set of trajectories, see folder "TPMBM filter".
 
 To run the PMBM filter with sequential track formation, execute PMBMtarget_filter_tracks_all.m.
 To run the PMB filter with sequential track formation, execute PMBtarget_filter_tracks_all.m.
@@ -53,6 +53,8 @@ To run the filters, execute GM_TPHD_filter.m and GM_TCPHD_filter.m
 # Folder "TPMBM filter"
 
 This folder contains the implementations of the trajectory PMBM (TPMBM) filter [[8]](https://ieeexplore.ieee.org/document/8455849)[[9]](https://ieeexplore.ieee.org/document/10799204), trajectory MBM (TMBM) filter [[10]](https://isif.org/media/multiscan-implementation-trajectory-poisson-multi-bernoulli-mixture-filter), trajectory PMB (TPMB) filter [4] and trajectory MB (TMB) filter [[11]](https://ieeexplore.ieee.org/document/9190554). Each of these filters can be run to estimate the set of alive trajectories or the set of all trajectories at each time step (running a different file).
+
+It should be noted that the TPMBM and TMBM filters provide the Bayesian recursion to compute the posterior density on the set of trajectories for Poisson point process birth model and multi-Bernoulli birth model, respectively. Therefore, they contain all information on the set of trajectories and can in principle provide optimal estimates of the sets of trajectories as well as any other information of interest (subject to the standard pruning approximations).
 
 To run the filters, execute TPMBM_all_filter.m, TPMB_all_filter.m, TMBM_all_filter.m, TMB_all_filter.m,  TPMBM_alive_filter.m, TPMB_alive_filter.m, TMBM_alive_filter.m, TMB_alive_filter.m.
 
