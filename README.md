@@ -1,4 +1,4 @@
-﻿This repository contains the Matlab implementations of Bayesian multi-target filtering and tracking algorithms. The available algorithms and metrics are organised in the following folders.
+This repository contains the Matlab implementations of Bayesian multi-target filtering and tracking algorithms. The available algorithms and metrics are organised in the following folders.
 
 # Performance evaluation
 
@@ -15,7 +15,7 @@ To run the PMBM filter, execute PMBMtarget_filter.m.
 To run the PMB filter, execute PMBtarget_filter.m.
 To run the MBM filter, execute MBMtarget_filter.m.
 
-Sequential track estimation with the above filters can be achieved by linking target states estimates from the same Bernoulli component, which is uniquely identified by a start time and measurement.  This information can be made explicit in the posterior via auxiliary variables [[4]](https://ieeexplore.ieee.org/document/9169859). Note that Bayesian track formation is obtained by estimating the set of trajectories directly from the posterior density on the set of trajectories, not by sequentially linking target state estimates [[5]](https://ieeexplore.ieee.org/document/8731733). See folder "TPMBM filter" for fully Bayesian estimation of the set of trajectories.
+Sequential track estimation with the above filters can be achieved by linking target states estimates from the same Bernoulli component, which is uniquely identified by a start time and measurement.  This information can be made explicit in the posterior via auxiliary variables [[4]](https://ieeexplore.ieee.org/document/9169859). Note that Bayesian track formation is obtained by estimating the set of trajectories directly from the posterior density on the set of trajectories, not by sequentially linking target state estimates [[5]](https://ieeexplore.ieee.org/document/8731733).
 
 To run the PMBM filter with sequential track formation, execute PMBMtarget_filter_tracks_all.m.
 To run the PMB filter with sequential track formation, execute PMBtarget_filter_tracks_all.m.
@@ -30,14 +30,14 @@ To run the continuous-discrete PMBM filter (Wiener velocity), execute PMBMtarget
 To run the continuous-discrete PHD filter (Wiener velocity), execute GMPHD_cd_filter.m.
 To run the continuous-discrete CPHD filter (Wiener velocity), execute GMCPHD_cd_filter.m.
 
-This folder also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for general linear stochastic differential equations (SDEs) described in [[24]]((https://ieeexplore.ieee.org/document/10857380)):
+This folder also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for general linear stochastic differential equations (SDEs) described in [[24]](https://ieeexplore.ieee.org/document/10857380):
 
 To run the continuous-discrete PMBM filter (linear SDE), execute PMBMtarget_cd_filter_linear_SDE.m.
 To run the continuous-discrete PMB filter (linear SDE), execute PMBtarget_cd_filter_linear_SDE.m.
 To run the continuous-discrete PHD filter (linear SDE), execute GMPHD_cd_filter_linear_SDE.m.
 To run the continuous-discrete CPHD filter (linear SDE), execute GMCPHD_cd_filter_linear_SDE.m.
 
-This folder also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for non-linear SDEs described in [[24]]((https://ieeexplore.ieee.org/document/10857380)):
+This folder also contains the implementations of the continuous-discrete PMBM, continuous-discrete PMB, continuous-discrete PHD, and continuous-discrete CPHD filters for non-linear SDEs described in [[24]](https://ieeexplore.ieee.org/document/10857380):
 
 To run the continuous-discrete PMBM filter (non-linear SDE), execute PMBMtarget_cd_filter_nonlinear_SDE_Taylor.m.
 To run the continuous-discrete PMB filter (non-linear SDE), execute PMBtarget_cd_filter_nonlinear_SDE_Taylor.m.
@@ -46,7 +46,7 @@ To run the continuous-discrete CPHD filter (non-linear SDE), execute GMCPHD_cd_f
 
 # Folder "TPHD"
 
-This folder contains the implementations of the trajectory probability hypothesis density (TPHD) filter and the trajectory cardinality PHD (TCPHD) filter for sets of trajectories in [[7]]((https://ieeexplore.ieee.org/document/8846723)).
+This folder contains the implementations of the trajectory probability hypothesis density (TPHD) filter and the trajectory cardinality PHD (TCPHD) filter for sets of trajectories in [[7]](https://ieeexplore.ieee.org/document/8846723).
 
 To run the filters, execute GM_TPHD_filter.m and GM_TCPHD_filter.m
 
@@ -54,43 +54,41 @@ To run the filters, execute GM_TPHD_filter.m and GM_TCPHD_filter.m
 
 This folder contains the implementations of the trajectory PMBM (TPMBM) filter [[8]](https://ieeexplore.ieee.org/document/8455849)[[9]](https://ieeexplore.ieee.org/document/10799204), trajectory MBM (TMBM) filter [[10]](https://isif.org/media/multiscan-implementation-trajectory-poisson-multi-bernoulli-mixture-filter), trajectory PMB (TPMB) filter [4] and trajectory MB (TMB) filter [[11]](https://ieeexplore.ieee.org/document/9190554). Each of these filters can be run to estimate the set of alive trajectories or the set of all trajectories at each time step (running a different file).
 
-It should be noted that the TPMBM and TMBM filters provide the Bayesian recursion to compute the posterior density on the set of trajectories for Poisson point process birth model and multi-Bernoulli birth model, respectively. Therefore, they contain all information on the set of trajectories and can in principle provide optimal estimates of the sets of trajectories as well as any other information of interest (subject to the standard pruning approximations).
-
-To run the filters, execute TPMBM_all_filter.m, TPMB_all_filter.m, TMBM_all_filter.m, TMB_all_filter.m,  TPMBM_alive_filter.m, TPMB_alive_filter.m, TMBM_alive_filter.m, TMB_alive_filter.m. 
+To run the filters, execute TPMBM_all_filter.m, TPMB_all_filter.m, TMBM_all_filter.m, TMB_all_filter.m,  TPMBM_alive_filter.m, TPMB_alive_filter.m, TMBM_alive_filter.m, TMB_alive_filter.m.
 
 # Folder "OOS TPMBM filter"
 
 This folder contains the implementations of the continuous-discrete TPMBM and continuous-discrete  TPMB filters with out-of-sequence measurements [[16]](https://ieeexplore.ieee.org/document/9502575). That is, multi-target dynamics (including target births, single-target dynamics and target deaths) are modelled in continuous time, and we receive measurements at known discrete time steps. We can also receive measurements that happened before the last processed measurement, so this measurement is out-of-sequence.
 
-To run the filters, execute TPMBM_cd_all_filter_oos.m and TPMB_cd_all_filter_oos.m. 
+To run the filters, execute TPMBM_cd_all_filter_oos.m and TPMB_cd_all_filter_oos.m.
 
-# Folder "Tree PMBM - Spawning" 
+# Folder "Tree PMBM - Spawning"
 
 This folder contains the implementations of the Tree PMBM and Tree MBM filters for multiple target tracking with spawning [[17]](https://ieeexplore.ieee.org/document/9754270).
 
-To run the filters, execute TrPMBM_all_filter.m and TrMBM_all_filter.m. A PMBM filter with spawning and sequential track formation can be run with PMBMtarget_filter_tracks_all_spawning.m. 
+To run the filters, execute TrPMBM_all_filter.m and TrMBM_all_filter.m. A PMBM filter with spawning and sequential track formation can be run with PMBMtarget_filter_tracks_all_spawning.m.
 
-# Folder "Non-linear MTT" 
+# Folder "Non-linear MTT"
 
-This folder contains the implementation of PMBM, PMB, TPMBM and TPMB filters for non-linear, non-Gaussian measurement models and non-constant probability of detection. 
-In particular, the filters perform the updates using the iterated posterior linearisation filter (IPLF) for conditional moments [[18]]((https://ieeexplore.ieee.org/document/7153566))[[19]]((https://ieeexplore.ieee.org/document/8260875)) and with the improvement of normalising constant approximation [[20]]((https://ieeexplore.ieee.org/document/9409712)). The TPMBM and TPMB implementations are explained in [[21]]((https://ieeexplore.ieee.org/document/9841396)). The implementations make use of a range-bearings sensors with von-Mises Fisher-distributed measurements. The IPLF for this type of measurement is explained in [[22]]((https://ieeexplore.ieee.org/document/8691412)).
+This folder contains the implementation of PMBM, PMB, TPMBM and TPMB filters for non-linear, non-Gaussian measurement models and non-constant probability of detection.
+In particular, the filters perform the updates using the iterated posterior linearisation filter (IPLF) for conditional moments [[18]](https://ieeexplore.ieee.org/document/7153566)[[19]](https://ieeexplore.ieee.org/document/8260875) and with the improvement of normalising constant approximation [[20]](https://ieeexplore.ieee.org/document/9409712). The TPMBM and TPMB implementations are explained in [[21]](https://ieeexplore.ieee.org/document/9841396). The implementations make use of a range-bearings sensors with von-Mises Fisher-distributed measurements. The IPLF for this type of measurement is explained in [[22]](https://ieeexplore.ieee.org/document/8691412).
 
-To run the filters, execute TPMBM_all_filter_range_bearing.m, TPMB_all_filter_range_bearing.m, TPMBM_alive_filter_range_bearing.m, TPMB_alive_filter_range_bearing.m, PMBM_filter_range_bearing.m , PMB_filter_range_bearing.m 
+To run the filters, execute TPMBM_all_filter_range_bearing.m, TPMB_all_filter_range_bearing.m, TPMBM_alive_filter_range_bearing.m, TPMB_alive_filter_range_bearing.m, PMBM_filter_range_bearing.m , PMB_filter_range_bearing.m
 
-# Folder "PMBM arbitrary clutter" 
+# Folder "PMBM arbitrary clutter"
 
-This folder contains the point-target PMBM and PMB implementations with negative binomial clutter in [[23]]((https://ieeexplore.ieee.org/document/10130623)).
+This folder contains the point-target PMBM and PMB implementations with negative binomial clutter in [[23]](https://ieeexplore.ieee.org/document/10130623).
 
 To run the filters, execute "PMBMtarget_filter_nb_clutter" and "PMBtarget_filter_nb_clutter"
 
-The code for the extended target example in [[23]]((https://ieeexplore.ieee.org/document/10130623)) can be found at 
+The code for the extended target example in [[23]](https://ieeexplore.ieee.org/document/10130623) can be found at
 
 https://github.com/yuhsuansia/Extented-target-PMBM-filter-independent-clutter-sources
 
-# Folder "Distributed MTT" 
+# Folder "Distributed MTT"
 
 This folder contains the implementation of the distributed PMBM/PMB filters based on the generalised covariance intersection (GCI) fusion rule for PMB densities in [[25]](https://ieeexplore.ieee.org/document/11334185).
- 
+
 To run the filters, execute DPMB_GCI_filtering.m.
 
 
@@ -99,7 +97,8 @@ To run the filters, execute DPMB_GCI_filtering.m.
 A relevant online course on Bayesian multiple target tracking by Chalmers University is available in Youtube and edX:
 
 https://www.youtube.com/channel/UCa2-fpj6AV8T6JK1uTRuFpw
-https://www.edx.org/course/multi-object-tracking-for-automotive-systems 
+
+https://www.edx.org/course/multi-object-tracking-for-automotive-systems
 
 # References
 
@@ -154,5 +153,3 @@ https://www.edx.org/course/multi-object-tracking-for-automotive-systems
 [[25] Á. F. García-Fernández and G. Battistelli, "Distributed Poisson Multi-Bernoulli Filtering via Generalized Covariance Intersection," in IEEE Transactions on Signal Processing, vol. 74, pp. 246-257, 2026.](https://ieeexplore.ieee.org/document/11334185)
 
 [[26] Á. F. García-Fernández, A. S. Rahmathullah and L. Svensson, "A time-weighted metric for sets of trajectories to assess multi-object tracking algorithms" in Proceedings of the 24th International Conference on Information Fusion, 2021.](https://ieeexplore.ieee.org/document/9626977)
-
-
