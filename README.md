@@ -2,7 +2,7 @@
 
 # Performance evaluation
 
-Performance evaluation of the multi-target filters, which estimate the set of targets at each time step, is based on the generalised optimal subpattern-assignment (GOSPA) metric and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [[12]](https://ieeexplore.ieee.org/document/8009645)[[13]]((https://ieeexplore.ieee.org/abstract/document/9011259))[[14]](https://www.youtube.com/watch?v=M79GTTytvCM). The GOSPA metric code is provided in folder "GOSPA code".
+Performance evaluation of the multi-target filters, which estimate the set of targets at each time step, is based on the generalised optimal subpattern-assignment (GOSPA) metric and its decomposition into localisation errors for properly detected targets, and costs for false and missed targets  [[12]](https://ieeexplore.ieee.org/document/8009645)[[13]](https://ieeexplore.ieee.org/abstract/document/9011259)[[14]](https://www.youtube.com/watch?v=M79GTTytvCM). The GOSPA metric code is provided in folder "GOSPA code".
 
 Performance evaluation of multi-target trackers (filters that estimate a set of trajectories) is based on the linear programming implementation of the trajectory GOSPA (T-GOSPA) metric (GOSPA metric for sets of trajectories) and its decomposition into localisation errors for properly detected targets, and costs for false, missed targets, and track switches [[15]](https://ieeexplore.ieee.org/document/9127194). The T-GOSPA metric code is provided in folder "Trajectory metric". This folder also contains the time-weighted T-GOSPA metric proposed in [[26]](https://ieeexplore.ieee.org/document/9626977).
 
@@ -15,7 +15,7 @@ To run the PMBM filter, execute PMBMtarget_filter.m.
 To run the PMB filter, execute PMBtarget_filter.m.
 To run the MBM filter, execute MBMtarget_filter.m.
 
-Sequential track estimation with the above filters can be achieved by linking target states estimates from the same Bernoulli component, which is uniquely identified by a start time and measurement.  This information can be made explicit in the posterior via auxiliary variables [[4]](https://ieeexplore.ieee.org/document/9169859). Note that Bayesian track formation is obtained by estimating the set of trajectories directly from the posterior density on the set of trajectories, not by sequentially linking target state estimates [[5]](https://ieeexplore.ieee.org/document/8731733).
+Sequential track estimation with the above filters can be achieved by linking target states estimates from the same Bernoulli component, which is uniquely identified by a start time and measurement.  This information can be made explicit in the posterior via auxiliary variables [[4]](https://ieeexplore.ieee.org/document/9169859). Note that Bayesian track formation is obtained by estimating the set of trajectories directly from the posterior density on the set of trajectories, not by sequentially linking target state estimates [[5]](https://ieeexplore.ieee.org/document/8731733). See folder "TPMBM filter" for fully Bayesian estimation of the set of trajectories.
 
 To run the PMBM filter with sequential track formation, execute PMBMtarget_filter_tracks_all.m.
 To run the PMB filter with sequential track formation, execute PMBtarget_filter_tracks_all.m.
