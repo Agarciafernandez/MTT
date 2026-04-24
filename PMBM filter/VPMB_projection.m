@@ -4,6 +4,9 @@ function filter_upd_pmb=VPMB_projection(filter_upd,max_iter,threshold)
 % PMBM based on coordinate descent KLD minimisation with auxiliary variables.
 % This projection gives rise to the variational PMB filter in [1] based on the most likely assignment
 % This is equivalent to the zero-temperature case in the variational PMB filter in Section III.B in [2].
+% An alternative derivation based on the use of auxiliary variables and
+% coordinate descent minimisation of the Kullback-Leibler divergence is
+% provided in [3].
 
 % [1] Y. Xia, K. Granström, L. Svensson, M. Fatemi, Á. F. García-Fernández and J. L. Williams,
 % "Poisson Multi-Bernoulli Approximations for Multiple Extended Object Filtering,"
@@ -11,6 +14,9 @@ function filter_upd_pmb=VPMB_projection(filter_upd,max_iter,threshold)
 
 % [2] J. L. Williams, "An Efficient, Variational Approximation of the Best Fitting Multi-Bernoulli Filter,"
 % in IEEE Transactions on Signal Processing, vol. 63, no. 1, pp. 258-273, Jan.1, 2015
+
+% [3]  A. F. García-Fernández, Y. Xia, “Variational PMB filter via coordinate descent Kullback-Leibler divergence minimisation,” 
+% in 29th International Conference on Information Fusion, 2026.
 
 %Author: Ángel García-Fernández
 
