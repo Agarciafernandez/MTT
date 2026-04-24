@@ -95,7 +95,7 @@ To run the filters, execute DPMB_GCI_filtering.m.
 
 # Folder "TGOSPA_qmetric_paper"
 
-This folder contains the examples for evaluating MTT algorithms using the T-GOSPA quasi-metric (q-metric) and its associated similarity score [[27]]([[https://ieeexplore.ieee.org/document/10130623](https://ieeexplore.ieee.org/document/11489514)](https://ieeexplore.ieee.org/document/11489514)). The T-GOSPA q-metric penalises localisation errors for properly detected targets, the number of missed targets, the number of false targets, and the number of track switches, allowing the costs of missed and false targets to be different. 
+This folder contains the examples for evaluating MTT algorithms using the T-GOSPA quasi-metric (q-metric) and its associated similarity score [[27]](https://ieeexplore.ieee.org/document/11489514). The T-GOSPA q-metric penalises localisation errors for properly detected targets, the number of missed targets, the number of false targets, and the number of track switches, allowing the costs of missed and false targets to be different. 
 
 Code of the T-GOSPA q-metric with examples is given in folder "Trajectory metric".
 Code of the GOSPA q-metric with examples is given in folder "GOSPA code".
