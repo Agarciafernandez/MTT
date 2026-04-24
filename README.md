@@ -93,6 +93,13 @@ This folder contains the implementation of the distributed PMBM/PMB filters base
 
 To run the filters, execute DPMB_GCI_filtering.m.
 
+# Folder "TGOSPA_qmetric_paper"
+
+This folder contains the examples for evaluating MTT algorithms using the T-GOSPA quasi-metric (q-metric) and its associated similarity score [[27]]([[https://ieeexplore.ieee.org/document/10130623](https://ieeexplore.ieee.org/document/11489514)](https://ieeexplore.ieee.org/document/11489514)). The T-GOSPA q-metric penalises localisation errors for properly detected targets, the number of missed targets, the number of false targets, and the number of track switches, allowing the costs of missed and false targets to be different. 
+
+Code of the T-GOSPA q-metric with examples is given in folder "Trajectory metric".
+Code of the GOSPA q-metric with examples is given in folder "GOSPA code".
+
 
 # Online course
 
@@ -155,3 +162,5 @@ https://www.edx.org/course/multi-object-tracking-for-automotive-systems
 [[25] Á. F. García-Fernández and G. Battistelli, "Distributed Poisson Multi-Bernoulli Filtering via Generalized Covariance Intersection," in IEEE Transactions on Signal Processing, vol. 74, pp. 246-257, 2026.](https://ieeexplore.ieee.org/document/11334185)
 
 [[26] Á. F. García-Fernández, A. S. Rahmathullah and L. Svensson, "A time-weighted metric for sets of trajectories to assess multi-object tracking algorithms" in Proceedings of the 24th International Conference on Information Fusion, 2021.](https://ieeexplore.ieee.org/document/9626977)
+
+[[27] Á. F. García-Fernández, J. Gu, L. Svensson, Y. Xia, J. Krejčí, O. Kost, O. Straka “GOSPA and T-GOSPA quasi-metrics for evaluation of multi-object tracking algorithms,” in IEEE Transactions on Aerospace and Electronic Systems, 2026.](https://ieeexplore.ieee.org/document/11489514)
